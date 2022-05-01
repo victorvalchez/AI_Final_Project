@@ -62,15 +62,25 @@ for row in new_list:
 
         countE += 1
 
-
+print("Low to high N,E,W")
 print(cLowNToHigh)
 print(cLowEToHigh)
 print(cLowWToHigh)
+print()
+print("Low to low N,E,W")
 print(cLowNToLow)
 print(cLowEToLow)
 print(cLowWToLow)
+print()
+print("High to high N,E,W")
 print(cHighNToHigh)
 print(cHighEToHigh)
 print(cHighWToHigh)
+print()
+print("High to low E")
 print(cHighEToLow)
-print(countE)
+print()
+print("Check total for each")
+print("Total for north: ", cLowNToHigh + cLowNToLow + cHighNToHigh)
+print("Total for east: ", cLowEToHigh + cLowEToLow + cHighEToHigh + cHighEToLow)
+print("Total for west: ", cLowWToHigh + cLowWToLow + cHighWToHigh)
