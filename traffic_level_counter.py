@@ -13,7 +13,7 @@ print(count)
 """
 import csv
 new_list = []
-with open('Data_no_header.csv', newline='') as csvfile:
+with open('Data_no_header.csv', 'r', newline='') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         new_list.append(row[0].split(';'))  # Esto crea una lista de lo que hay en cada fila (le pongo que esta separado
