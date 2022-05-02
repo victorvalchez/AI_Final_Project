@@ -29,6 +29,7 @@ class GetActionProbabilities:
         cHighWToHigh = 0
 
         cHighNToLow = 0
+        cHighEToLow = 0
 
         for row in new_list:
             if row[3] == 'N':
@@ -55,6 +56,8 @@ class GetActionProbabilities:
 
                 if row[0] == 'High' and row[4] == 'Low':
                     cHighNToLow += 1
+                if row[1] == 'High' and row[5] == 'Low':
+                    cHighEToLow += 1
 
                 countN += 1
 
@@ -73,8 +76,9 @@ class GetActionProbabilities:
         print(cHighEToHigh)
         print(cHighWToHigh)
         print("-----------------------------\n")
-        print("High to low N")
+        print("High to low N, E")
         print(cHighNToLow)
+        print(cHighEToLow)
         print("------------------------------\n")
         print("-----Check total for each-----")
         print("Total for north: ", cLowNToHigh + cLowNToLow + cHighNToHigh + cHighNToLow)
