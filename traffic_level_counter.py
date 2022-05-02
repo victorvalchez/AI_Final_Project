@@ -13,7 +13,7 @@ class GetActionProbabilities:
         return new_list
 
     def get_action_GN(self):
-        new_list = self.read_csv("Data_no_header.csv")
+        new_list = self.read_csv("data/Data_no_header.csv")
         countN = 0
 
         cLowNToHigh = 0
@@ -85,7 +85,7 @@ class GetActionProbabilities:
         print("------------------------------\n")
 
     def get_action_GE(self):
-        new_list = self.read_csv("Data_no_header.csv")
+        new_list = self.read_csv("data/Data_no_header.csv")
         cLowNToHigh = 0
         cLowEToHigh = 0
         cLowWToHigh = 0
@@ -151,7 +151,7 @@ class GetActionProbabilities:
         print("------------------------------\n")
 
     def get_action_GW(self):
-        new_list = self.read_csv("Data_no_header.csv")
+        new_list = self.read_csv("data/Data_no_header.csv")
         countN = 0
 
         cLowNToHigh = 0

@@ -1,4 +1,4 @@
-file = open("Data_no_header.csv", "r")
+file = open("data/Data_no_header.csv", "r")
 # read content of file to string
 data = file.read()
 
