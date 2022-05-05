@@ -14,86 +14,37 @@ class GetActionProbabilities:
 
     def get_action(self, action: str):  # 2935
         new_list = self.read_csv("data/Data_no_header.csv")
-        countN = 0
-
-        cHHHtoHHH = 0
-        cHHHtoHHL = 0
-        cHHHtoHLH = 0
-        cHHHtoHLL = 0
-        cHHHtoLHH = 0
-        cHHHtoLHL = 0
-        cHHHtoLLH = 0
-        cHHHtoLLL = 0
+        # From state HHH
+        cHHHtoHHH, cHHHtoHHL, cHHHtoHLH, cHHHtoHLL, cHHHtoLHH, cHHHtoLHL, cHHHtoLLH, cHHHtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cHHH = 0
-
-        cHHLtoHHH = 0
-        cHHLtoHHL = 0
-        cHHLtoHLH = 0
-        cHHLtoHLL = 0
-        cHHLtoLHH = 0
-        cHHLtoLHL = 0
-        cHHLtoLLH = 0
-        cHHLtoLLL = 0
+        # From state HHL
+        cHHLtoHHH, cHHLtoHHL, cHHLtoHLH, cHHLtoHLL, cHHLtoLHH, cHHLtoLHL, cHHLtoLLH, cHHLtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cHHL = 0
-
-        cHLHtoHHH = 0
-        cHLHtoHHL = 0
-        cHLHtoHLH = 0
-        cHLHtoHLL = 0
-        cHLHtoLHH = 0
-        cHLHtoLHL = 0
-        cHLHtoLLH = 0
-        cHLHtoLLL = 0
+        # From state HHL
+        cHLHtoHHH, cHLHtoHHL, cHLHtoHLH, cHLHtoHLL, cHLHtoLHH, cHLHtoLHL, cHLHtoLLH, cHLHtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cHLH = 0
-
-        cHLLtoHHH = 0
-        cHLLtoHHL = 0
-        cHLLtoHLH = 0
-        cHLLtoHLL = 0
-        cHLLtoLHH = 0
-        cHLLtoLHL = 0
-        cHLLtoLLH = 0
-        cHLLtoLLL = 0
+        # From state HLL
+        cHLLtoHHH, cHLLtoHHL, cHLLtoHLH, cHLLtoHLL, cHLLtoLHH, cHLLtoLHL, cHLLtoLLH, cHLLtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cHLL = 0
-
-        cLHHtoHHH = 0
-        cLHHtoHHL = 0
-        cLHHtoHLH = 0
-        cLHHtoHLL = 0
-        cLHHtoLHH = 0
-        cLHHtoLHL = 0
-        cLHHtoLLH = 0
-        cLHHtoLLL = 0
+        # From state LHH
+        cLHHtoHHH, cLHHtoHHL, cLHHtoHLH, cLHHtoHLL, cLHHtoLHH, cLHHtoLHL, cLHHtoLLH, cLHHtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cLHH = 0
-
-        cLHLtoHHH = 0
-        cLHLtoHHL = 0
-        cLHLtoHLH = 0
-        cLHLtoHLL = 0
-        cLHLtoLHH = 0
-        cLHLtoLHL = 0
-        cLHLtoLLH = 0
-        cLHLtoLLL = 0
+        # From state LHL
+        cLHLtoHHH, cLHLtoHHL, cLHLtoHLH, cLHLtoHLL, cLHLtoLHH, cLHLtoLHL, cLHLtoLLH, cLHLtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cLHL = 0
-
-        cLLHtoHHH = 0
-        cLLHtoHHL = 0
-        cLLHtoHLH = 0
-        cLLHtoHLL = 0
-        cLLHtoLHH = 0
-        cLLHtoLHL = 0
-        cLLHtoLLH = 0
-        cLLHtoLLL = 0
+        # From state LLH
+        cLLHtoHHH, cLLHtoHHL, cLLHtoHLH, cLLHtoHLL, cLLHtoLHH, cLLHtoLHL, cLLHtoLLH, cLLHtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cLLH = 0
-
-        cLLLtoHHH = 0
-        cLLLtoHHL = 0
-        cLLLtoHLH = 0
-        cLLLtoHLL = 0
-        cLLLtoLHH = 0
-        cLLLtoLHL = 0
-        cLLLtoLLH = 0
-        cLLLtoLLL = 0
+        # From state LLL
+        cLLLtoHHH, cLLLtoHHL, cLLLtoHLH, cLLLtoHLL, cLLLtoLHH, cLLLtoLHL, cLLLtoLLH, cLLLtoLLL \
+            = 0, 0, 0, 0, 0, 0, 0, 0
         cLLL = 0
 
         for row in new_list:
@@ -249,8 +200,6 @@ class GetActionProbabilities:
                     if row[4] == 'Low' and row[5] == 'Low' and row[6] == 'Low':
                         cLLLtoLLL += 1
                     cLLL += 1
-
-                countN += 1
 
         print("-----HHH-----")
         print("TO HHH:", cHHHtoHHH / cHHH)
