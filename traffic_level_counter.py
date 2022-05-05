@@ -2,6 +2,11 @@ import csv
 
 
 class GetActionProbabilities:
+    costN, costE, costW = 0, 0, 0
+    HHH, HHL, HLH, HLL, LHH, LHL, LLH, LLL = [], [], [], [], [], [], [], []
+
+
+
     @staticmethod
     def read_csv(file):
         new_list = []
@@ -203,13 +208,28 @@ class GetActionProbabilities:
 
         print("-----HHH-----")
         print("TO HHH:", round((cHHHtoHHH / cHHH), 6))
+        self.HHH.append(round((cHHHtoHHH / cHHH), 6))
+
         print("TO HHL:", round((cHHHtoHHL / cHHH), 6))
+        self.HHH.append(round((cHHHtoHHL / cHHH), 6))
+
         print("TO HLH:", round((cHHHtoHLH / cHHH), 6))
+        self.HHH.append(round((cHHHtoHLH / cHHH), 6))
+
         print("TO HLL:", round((cHHHtoHLL / cHHH), 6))
+        self.HHH.append(round((cHHHtoHLL / cHHH), 6))
+
         print("TO LHH:", round((cHHHtoLHH / cHHH), 6))
+        self.HHH.append(round((cHHHtoLHH / cHHH), 6))
+
         print("TO LHL:", round((cHHHtoLHL / cHHH), 6))
+        self.HHH.append(round((cHHHtoLHL / cHHH), 6))
+
         print("TO LLH:", round((cHHHtoLLH / cHHH), 6))
+        self.HHH.append(round((cHHHtoLLH / cHHH), 6))
+
         print("TO LLL:", round((cHHHtoLLL / cHHH), 6))
+        self.HHH.append(round((cHHHtoLLL / cHHH), 6))
         print("TOTAL HHH:", cHHH)
         print("---------------------------\n")
         print("-----HHL-----")
@@ -297,6 +317,26 @@ class GetActionProbabilities:
         self.get_action('N')
         print("\nAction W probabilities:")
         self.get_action('W')
+
+    def bellman_equations(self, state_probs: list, prev_costs: list, state: str) -> list:
+        cost = min(self.costN + state_probs[0]*prev_costHHH +state_probs[1]*)
+        if state == 'HHH':
+            prev_costs[0] == cost
+        elif state == 'HHL':
+            prev_costs[1] == cost
+        elif state == 'HLH':
+            prev_costs[2] == cost
+        elif state == 'HLL':
+            prev_costs[3] == cost
+        elif state == 'LHH':
+            prev_costs[4] == cost
+        elif state == 'LHL':
+            prev_costs[5] == cost
+        elif state == 'LLH':
+            prev_costs[6] == cost
+        else:
+            prev_costs[7] == cost
+        return cost
 
 
 GetActionProbabilities().print_probabilities()
