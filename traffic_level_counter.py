@@ -3,7 +3,9 @@ import csv
 
 class GetActionProbabilities:
     costN, costE, costW = 1, 1, 1
-    HHH, HHL, HLH, HLL, LHH, LHL, LLH, LLL = [], [], [], [], [], [], [], []
+    HHHE, HHLE, HLHE, HLLE, LHHE, LHLE, LLHE, LLLE = [], [], [], [], [], [], [], []
+    HHHN, HHLN, HLHN, HLLN, LHHN, LHLN, LLHN, LLLN = [], [], [], [], [], [], [], []
+    HHHW, HHLW, HLHW, HLLW, LHHW, LHLW, LLHW, LLLW = [], [], [], [], [], [], [], []
     previous_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
 
     @staticmethod
@@ -205,305 +207,451 @@ class GetActionProbabilities:
                         cLLLtoLLL += 1
                     cLLL += 1
 
-        self.HHH.append(round((cHHHtoHHH / cHHH), 6))
-        self.HHH.append(round((cHHHtoHHL / cHHH), 6))
-        self.HHH.append(round((cHHHtoHLH / cHHH), 6))
-        self.HHH.append(round((cHHHtoHLL / cHHH), 6))
-        self.HHH.append(round((cHHHtoLHH / cHHH), 6))
-        self.HHH.append(round((cHHHtoLHL / cHHH), 6))
-        self.HHH.append(round((cHHHtoLLH / cHHH), 6))
-        self.HHH.append(round((cHHHtoLLL / cHHH), 6))
+        if action == 'E':
+            self.HHHE.append(round((cHHHtoHHH / cHHH), 6))
+            self.HHHE.append(round((cHHHtoHHL / cHHH), 6))
+            self.HHHE.append(round((cHHHtoHLH / cHHH), 6))
+            self.HHHE.append(round((cHHHtoHLL / cHHH), 6))
+            self.HHHE.append(round((cHHHtoLHH / cHHH), 6))
+            self.HHHE.append(round((cHHHtoLHL / cHHH), 6))
+            self.HHHE.append(round((cHHHtoLLH / cHHH), 6))
+            self.HHHE.append(round((cHHHtoLLL / cHHH), 6))
 
-        self.HHL.append(round((cHHLtoHHH / cHHL), 6))
-        self.HHL.append(round((cHHLtoHHL / cHHL), 6))
-        self.HHL.append(round((cHHLtoHLH / cHHL), 6))
-        self.HHL.append(round((cHHLtoHLL / cHHL), 6))
-        self.HHL.append(round((cHHLtoLHH / cHHL), 6))
-        self.HHL.append(round((cHHLtoLHL / cHHL), 6))
-        self.HHL.append(round((cHHLtoLLH / cHHL), 6))
-        self.HHL.append(round((cHHLtoLLL / cHHL), 6))
+            self.HHLE.append(round((cHHLtoHHH / cHHL), 6))
+            self.HHLE.append(round((cHHLtoHHL / cHHL), 6))
+            self.HHLE.append(round((cHHLtoHLH / cHHL), 6))
+            self.HHLE.append(round((cHHLtoHLL / cHHL), 6))
+            self.HHLE.append(round((cHHLtoLHH / cHHL), 6))
+            self.HHLE.append(round((cHHLtoLHL / cHHL), 6))
+            self.HHLE.append(round((cHHLtoLLH / cHHL), 6))
+            self.HHLE.append(round((cHHLtoLLL / cHHL), 6))
 
-        self.HLH.append(round((cHLHtoHHH / cHLH), 6))
-        self.HLH.append(round((cHLHtoHHL / cHLH), 6))
-        self.HLH.append(round((cHLHtoHLH / cHLH), 6))
-        self.HLH.append(round((cHLHtoHLL / cHLH), 6))
-        self.HLH.append(round((cHLHtoLHH / cHLH), 6))
-        self.HLH.append(round((cHLHtoLHL / cHLH), 6))
-        self.HLH.append(round((cHLHtoLLH / cHLH), 6))
-        self.HLH.append(round((cHLHtoLLL / cHLH), 6))
+            self.HLHE.append(round((cHLHtoHHH / cHLH), 6))
+            self.HLHE.append(round((cHLHtoHHL / cHLH), 6))
+            self.HLHE.append(round((cHLHtoHLH / cHLH), 6))
+            self.HLHE.append(round((cHLHtoHLL / cHLH), 6))
+            self.HLHE.append(round((cHLHtoLHH / cHLH), 6))
+            self.HLHE.append(round((cHLHtoLHL / cHLH), 6))
+            self.HLHE.append(round((cHLHtoLLH / cHLH), 6))
+            self.HLHE.append(round((cHLHtoLLL / cHLH), 6))
 
-        self.HLL.append(round((cHLLtoHHH / cHLL), 6))
-        self.HLL.append(round((cHLLtoHHL / cHLL), 6))
-        self.HLL.append(round((cHLLtoHLH / cHLL), 6))
-        self.HLL.append(round((cHLLtoHLL / cHLL), 6))
-        self.HLL.append(round((cHLLtoLHH / cHLL), 6))
-        self.HLL.append(round((cHLLtoLHL / cHLL), 6))
-        self.HLL.append(round((cHLLtoLLH / cHLL), 6))
-        self.HLL.append(round((cHLLtoLLL / cHLL), 6))
+            self.HLLE.append(round((cHLLtoHHH / cHLL), 6))
+            self.HLLE.append(round((cHLLtoHHL / cHLL), 6))
+            self.HLLE.append(round((cHLLtoHLH / cHLL), 6))
+            self.HLLE.append(round((cHLLtoHLL / cHLL), 6))
+            self.HLLE.append(round((cHLLtoLHH / cHLL), 6))
+            self.HLLE.append(round((cHLLtoLHL / cHLL), 6))
+            self.HLLE.append(round((cHLLtoLLH / cHLL), 6))
+            self.HLLE.append(round((cHLLtoLLL / cHLL), 6))
 
-        self.LHH.append(round((cLHHtoHHH / cLHH), 6))
-        self.LHH.append(round((cLHHtoHHL / cLHH), 6))
-        self.LHH.append(round((cLHHtoHLH / cLHH), 6))
-        self.LHH.append(round((cLHHtoHLL / cLHH), 6))
-        self.LHH.append(round((cLHHtoLHH / cLHH), 6))
-        self.LHH.append(round((cLHHtoLHL / cLHH), 6))
-        self.LHH.append(round((cLHHtoLLH / cLHH), 6))
-        self.LHH.append(round((cLHHtoLLL / cLHH), 6))
+            self.LHHE.append(round((cLHHtoHHH / cLHH), 6))
+            self.LHHE.append(round((cLHHtoHHL / cLHH), 6))
+            self.LHHE.append(round((cLHHtoHLH / cLHH), 6))
+            self.LHHE.append(round((cLHHtoHLL / cLHH), 6))
+            self.LHHE.append(round((cLHHtoLHH / cLHH), 6))
+            self.LHHE.append(round((cLHHtoLHL / cLHH), 6))
+            self.LHHE.append(round((cLHHtoLLH / cLHH), 6))
+            self.LHHE.append(round((cLHHtoLLL / cLHH), 6))
 
-        self.LHL.append(round((cLHLtoHHH / cLHL), 6))
-        self.LHL.append(round((cLHLtoHHL / cLHL), 6))
-        self.LHL.append(round((cLHLtoHLH / cLHL), 6))
-        self.LHL.append(round((cLHLtoHLL / cLHL), 6))
-        self.LHL.append(round((cLHLtoLHH / cLHL), 6))
-        self.LHL.append(round((cLHLtoLHL / cLHL), 6))
-        self.LHL.append(round((cLHLtoLLH / cLHL), 6))
-        self.LHL.append(round((cLHLtoLLL / cLHL), 6))
+            self.LHLE.append(round((cLHLtoHHH / cLHL), 6))
+            self.LHLE.append(round((cLHLtoHHL / cLHL), 6))
+            self.LHLE.append(round((cLHLtoHLH / cLHL), 6))
+            self.LHLE.append(round((cLHLtoHLL / cLHL), 6))
+            self.LHLE.append(round((cLHLtoLHH / cLHL), 6))
+            self.LHLE.append(round((cLHLtoLHL / cLHL), 6))
+            self.LHLE.append(round((cLHLtoLLH / cLHL), 6))
+            self.LHLE.append(round((cLHLtoLLL / cLHL), 6))
 
-        self.LLH.append(round((cLLHtoHHH / cLLH), 6))
-        self.LLH.append(round((cLLHtoHHL / cLLH), 6))
-        self.LLH.append(round((cLLHtoHLH / cLLH), 6))
-        self.LLH.append(round((cLLHtoHLL / cLLH), 6))
-        self.LLH.append(round((cLLHtoLHH / cLLH), 6))
-        self.LLH.append(round((cLLHtoLHL / cLLH), 6))
-        self.LLH.append(round((cLLHtoLLH / cLLH), 6))
-        self.LLH.append(round((cLLHtoLLL / cLLH), 6))
+            self.LLHE.append(round((cLLHtoHHH / cLLH), 6))
+            self.LLHE.append(round((cLLHtoHHL / cLLH), 6))
+            self.LLHE.append(round((cLLHtoHLH / cLLH), 6))
+            self.LLHE.append(round((cLLHtoHLL / cLLH), 6))
+            self.LLHE.append(round((cLLHtoLHH / cLLH), 6))
+            self.LLHE.append(round((cLLHtoLHL / cLLH), 6))
+            self.LLHE.append(round((cLLHtoLLH / cLLH), 6))
+            self.LLHE.append(round((cLLHtoLLL / cLLH), 6))
 
-        self.LLL.append(round(cLLLtoHHH, 6))
-        self.LLL.append(round(cLLLtoHHL, 6))
-        self.LLL.append(round(cLLLtoHLH, 6))
-        self.LLL.append(round(cLLLtoHLL, 6))
-        self.LLL.append(round(cLLLtoLHH, 6))
-        self.LLL.append(round(cLLLtoLHL, 6))
-        self.LLL.append(round(cLLLtoLLH, 6))
-        self.LLL.append(round(cLLLtoLLL, 6))
+            self.LLLE.append(round(cLLLtoHHH, 6))
+            self.LLLE.append(round(cLLLtoHHL, 6))
+            self.LLLE.append(round(cLLLtoHLH, 6))
+            self.LLLE.append(round(cLLLtoHLL, 6))
+            self.LLLE.append(round(cLLLtoLHH, 6))
+            self.LLLE.append(round(cLLLtoLHL, 6))
+            self.LLLE.append(round(cLLLtoLLH, 6))
+            self.LLLE.append(round(cLLLtoLLL, 6))
+        elif action == 'N':
+            self.HHHN.append(round((cHHHtoHHH / cHHH), 6))
+            self.HHHN.append(round((cHHHtoHHL / cHHH), 6))
+            self.HHHN.append(round((cHHHtoHLH / cHHH), 6))
+            self.HHHN.append(round((cHHHtoHLL / cHHH), 6))
+            self.HHHN.append(round((cHHHtoLHH / cHHH), 6))
+            self.HHHN.append(round((cHHHtoLHL / cHHH), 6))
+            self.HHHN.append(round((cHHHtoLLH / cHHH), 6))
+            self.HHHN.append(round((cHHHtoLLL / cHHH), 6))
 
-    def print_probabilitiesE(self):
-        print("\nAction E probabilities:")
-        self.get_action('E')
-        print("-----HHH-----")
-        print("TO HHH:", self.HHH[0])
-        print("TO HHL:", self.HHH[1])
-        print("TO HLH:", self.HHH[2])
-        print("TO HLL:", self.HHH[3])
-        print("TO LHH:", self.HHH[4])
-        print("TO LHL:", self.HHH[5])
-        print("TO LLH:", self.HHH[6])
-        print("TO LLL:", self.HHH[7])
-        print("-----HHL-----")
-        print("TO HHH:", self.HHL[0])
-        print("TO HHL:", self.HHL[1])
-        print("TO HLH:", self.HHL[2])
-        print("TO HLL:", self.HHL[3])
-        print("TO LHH:", self.HHL[4])
-        print("TO LHL:", self.HHL[5])
-        print("TO LLH:", self.HHL[6])
-        print("TO LLL:", self.HHL[7])
-        print("-----HLH-----")
-        print("TO HHH:", self.HLH[0])
-        print("TO HHL:", self.HLH[1])
-        print("TO HLH:", self.HLH[2])
-        print("TO HLL:", self.HLH[3])
-        print("TO LHH:", self.HLH[4])
-        print("TO LHL:", self.HLH[5])
-        print("TO LLH:", self.HLH[6])
-        print("TO LLL:", self.HLH[7])
-        print("-----HLL-----")
-        print("TO HHH:", self.HLL[0])
-        print("TO HHL:", self.HLL[1])
-        print("TO HLH:", self.HLL[2])
-        print("TO HLL:", self.HLL[3])
-        print("TO LHH:", self.HLL[4])
-        print("TO LHL:", self.HLL[5])
-        print("TO LLH:", self.HLL[6])
-        print("TO LLL:", self.HLL[7])
-        print("-----LHH-----")
-        print("TO HHH:", self.LHH[0])
-        print("TO HHL:", self.LHH[1])
-        print("TO HLH:", self.LHH[2])
-        print("TO HLL:", self.LHH[3])
-        print("TO LHH:", self.LHH[4])
-        print("TO LHL:", self.LHH[5])
-        print("TO LLH:", self.LHH[6])
-        print("TO LLL:", self.LHH[7])
-        print("-----LHL-----")
-        print("TO HHH:", self.LHL[0])
-        print("TO HHL:", self.LHL[1])
-        print("TO HLH:", self.LHL[2])
-        print("TO HLL:", self.LHL[3])
-        print("TO LHH:", self.LHL[4])
-        print("TO LHL:", self.LHL[5])
-        print("TO LLH:", self.LHL[6])
-        print("TO LLL:", self.LHL[7])
-        print("-----LLH-----")
-        print("TO HHH:", self.LLH[0])
-        print("TO HHL:", self.LLH[1])
-        print("TO HLH:", self.LLH[2])
-        print("TO HLL:", self.LLH[3])
-        print("TO LHH:", self.LLH[4])
-        print("TO LHL:", self.LLH[5])
-        print("TO LLH:", self.LLH[6])
-        print("TO LLL:", self.LLH[7])
-        print("-----LLL-----")
-        print("TO HHH:", self.LLL[0])
-        print("TO HHL:", self.LLL[1])
-        print("TO HLH:", self.LLL[2])
-        print("TO HLL:", self.LLL[3])
-        print("TO LHH:", self.LLL[4])
-        print("TO LHL:", self.LLL[5])
-        print("TO LLH:", self.LLL[6])
-        print("TO LLL:", self.LLL[7])
+            self.HHLN.append(round((cHHLtoHHH / cHHL), 6))
+            self.HHLN.append(round((cHHLtoHHL / cHHL), 6))
+            self.HHLN.append(round((cHHLtoHLH / cHHL), 6))
+            self.HHLN.append(round((cHHLtoHLL / cHHL), 6))
+            self.HHLN.append(round((cHHLtoLHH / cHHL), 6))
+            self.HHLN.append(round((cHHLtoLHL / cHHL), 6))
+            self.HHLN.append(round((cHHLtoLLH / cHHL), 6))
+            self.HHLN.append(round((cHHLtoLLL / cHHL), 6))
 
-    def print_probabilitiesN(self):
-        print("\nAction N probabilities:")
-        self.get_action('N')
-        print("-----HHH-----")
-        print("TO HHH:", self.HHH[0])
-        print("TO HHL:", self.HHH[1])
-        print("TO HLH:", self.HHH[2])
-        print("TO HLL:", self.HHH[3])
-        print("TO LHH:", self.HHH[4])
-        print("TO LHL:", self.HHH[5])
-        print("TO LLH:", self.HHH[6])
-        print("TO LLL:", self.HHH[7])
-        print("-----HHL-----")
-        print("TO HHH:", self.HHL[0])
-        print("TO HHL:", self.HHL[1])
-        print("TO HLH:", self.HHL[2])
-        print("TO HLL:", self.HHL[3])
-        print("TO LHH:", self.HHL[4])
-        print("TO LHL:", self.HHL[5])
-        print("TO LLH:", self.HHL[6])
-        print("TO LLL:", self.HHL[7])
-        print("-----HLH-----")
-        print("TO HHH:", self.HLH[0])
-        print("TO HHL:", self.HLH[1])
-        print("TO HLH:", self.HLH[2])
-        print("TO HLL:", self.HLH[3])
-        print("TO LHH:", self.HLH[4])
-        print("TO LHL:", self.HLH[5])
-        print("TO LLH:", self.HLH[6])
-        print("TO LLL:", self.HLH[7])
-        print("-----HLL-----")
-        print("TO HHH:", self.HLL[0])
-        print("TO HHL:", self.HLL[1])
-        print("TO HLH:", self.HLL[2])
-        print("TO HLL:", self.HLL[3])
-        print("TO LHH:", self.HLL[4])
-        print("TO LHL:", self.HLL[5])
-        print("TO LLH:", self.HLL[6])
-        print("TO LLL:", self.HLL[7])
-        print("-----LHH-----")
-        print("TO HHH:", self.LHH[0])
-        print("TO HHL:", self.LHH[1])
-        print("TO HLH:", self.LHH[2])
-        print("TO HLL:", self.LHH[3])
-        print("TO LHH:", self.LHH[4])
-        print("TO LHL:", self.LHH[5])
-        print("TO LLH:", self.LHH[6])
-        print("TO LLL:", self.LHH[7])
-        print("-----LHL-----")
-        print("TO HHH:", self.LHL[0])
-        print("TO HHL:", self.LHL[1])
-        print("TO HLH:", self.LHL[2])
-        print("TO HLL:", self.LHL[3])
-        print("TO LHH:", self.LHL[4])
-        print("TO LHL:", self.LHL[5])
-        print("TO LLH:", self.LHL[6])
-        print("TO LLL:", self.LHL[7])
-        print("-----LLH-----")
-        print("TO HHH:", self.LLH[0])
-        print("TO HHL:", self.LLH[1])
-        print("TO HLH:", self.LLH[2])
-        print("TO HLL:", self.LLH[3])
-        print("TO LHH:", self.LLH[4])
-        print("TO LHL:", self.LLH[5])
-        print("TO LLH:", self.LLH[6])
-        print("TO LLL:", self.LLH[7])
-        print("-----LLL-----")
-        print("TO HHH:", self.LLL[0])
-        print("TO HHL:", self.LLL[1])
-        print("TO HLH:", self.LLL[2])
-        print("TO HLL:", self.LLL[3])
-        print("TO LHH:", self.LLL[4])
-        print("TO LHL:", self.LLL[5])
-        print("TO LLH:", self.LLL[6])
-        print("TO LLL:", self.LLL[7])
+            self.HLHN.append(round((cHLHtoHHH / cHLH), 6))
+            self.HLHN.append(round((cHLHtoHHL / cHLH), 6))
+            self.HLHN.append(round((cHLHtoHLH / cHLH), 6))
+            self.HLHN.append(round((cHLHtoHLL / cHLH), 6))
+            self.HLHN.append(round((cHLHtoLHH / cHLH), 6))
+            self.HLHN.append(round((cHLHtoLHL / cHLH), 6))
+            self.HLHN.append(round((cHLHtoLLH / cHLH), 6))
+            self.HLHN.append(round((cHLHtoLLL / cHLH), 6))
 
-    def print_probabilitiesW(self):
-        print("\nAction W probabilities:")
-        self.get_action('W')
-        print("-----HHH-----")
-        print("TO HHH:", self.HHH[0])
-        print("TO HHL:", self.HHH[1])
-        print("TO HLH:", self.HHH[2])
-        print("TO HLL:", self.HHH[3])
-        print("TO LHH:", self.HHH[4])
-        print("TO LHL:", self.HHH[5])
-        print("TO LLH:", self.HHH[6])
-        print("TO LLL:", self.HHH[7])
-        print("-----HHL-----")
-        print("TO HHH:", self.HHL[0])
-        print("TO HHL:", self.HHL[1])
-        print("TO HLH:", self.HHL[2])
-        print("TO HLL:", self.HHL[3])
-        print("TO LHH:", self.HHL[4])
-        print("TO LHL:", self.HHL[5])
-        print("TO LLH:", self.HHL[6])
-        print("TO LLL:", self.HHL[7])
-        print("-----HLH-----")
-        print("TO HHH:", self.HLH[0])
-        print("TO HHL:", self.HLH[1])
-        print("TO HLH:", self.HLH[2])
-        print("TO HLL:", self.HLH[3])
-        print("TO LHH:", self.HLH[4])
-        print("TO LHL:", self.HLH[5])
-        print("TO LLH:", self.HLH[6])
-        print("TO LLL:", self.HLH[7])
-        print("-----HLL-----")
-        print("TO HHH:", self.HLL[0])
-        print("TO HHL:", self.HLL[1])
-        print("TO HLH:", self.HLL[2])
-        print("TO HLL:", self.HLL[3])
-        print("TO LHH:", self.HLL[4])
-        print("TO LHL:", self.HLL[5])
-        print("TO LLH:", self.HLL[6])
-        print("TO LLL:", self.HLL[7])
-        print("-----LHH-----")
-        print("TO HHH:", self.LHH[0])
-        print("TO HHL:", self.LHH[1])
-        print("TO HLH:", self.LHH[2])
-        print("TO HLL:", self.LHH[3])
-        print("TO LHH:", self.LHH[4])
-        print("TO LHL:", self.LHH[5])
-        print("TO LLH:", self.LHH[6])
-        print("TO LLL:", self.LHH[7])
-        print("-----LHL-----")
-        print("TO HHH:", self.LHL[0])
-        print("TO HHL:", self.LHL[1])
-        print("TO HLH:", self.LHL[2])
-        print("TO HLL:", self.LHL[3])
-        print("TO LHH:", self.LHL[4])
-        print("TO LHL:", self.LHL[5])
-        print("TO LLH:", self.LHL[6])
-        print("TO LLL:", self.LHL[7])
-        print("-----LLH-----")
-        print("TO HHH:", self.LLH[0])
-        print("TO HHL:", self.LLH[1])
-        print("TO HLH:", self.LLH[2])
-        print("TO HLL:", self.LLH[3])
-        print("TO LHH:", self.LLH[4])
-        print("TO LHL:", self.LLH[5])
-        print("TO LLH:", self.LLH[6])
-        print("TO LLL:", self.LLH[7])
-        print("-----LLL-----")
-        print("TO HHH:", self.LLL[0])
-        print("TO HHL:", self.LLL[1])
-        print("TO HLH:", self.LLL[2])
-        print("TO HLL:", self.LLL[3])
-        print("TO LHH:", self.LLL[4])
-        print("TO LHL:", self.LLL[5])
-        print("TO LLH:", self.LLL[6])
-        print("TO LLL:", self.LLL[7])
+            self.HLLN.append(round((cHLLtoHHH / cHLL), 6))
+            self.HLLN.append(round((cHLLtoHHL / cHLL), 6))
+            self.HLLN.append(round((cHLLtoHLH / cHLL), 6))
+            self.HLLN.append(round((cHLLtoHLL / cHLL), 6))
+            self.HLLN.append(round((cHLLtoLHH / cHLL), 6))
+            self.HLLN.append(round((cHLLtoLHL / cHLL), 6))
+            self.HLLN.append(round((cHLLtoLLH / cHLL), 6))
+            self.HLLN.append(round((cHLLtoLLL / cHLL), 6))
+
+            self.LHHN.append(round((cLHHtoHHH / cLHH), 6))
+            self.LHHN.append(round((cLHHtoHHL / cLHH), 6))
+            self.LHHN.append(round((cLHHtoHLH / cLHH), 6))
+            self.LHHN.append(round((cLHHtoHLL / cLHH), 6))
+            self.LHHN.append(round((cLHHtoLHH / cLHH), 6))
+            self.LHHN.append(round((cLHHtoLHL / cLHH), 6))
+            self.LHHN.append(round((cLHHtoLLH / cLHH), 6))
+            self.LHHN.append(round((cLHHtoLLL / cLHH), 6))
+
+            self.LHLN.append(round((cLHLtoHHH / cLHL), 6))
+            self.LHLN.append(round((cLHLtoHHL / cLHL), 6))
+            self.LHLN.append(round((cLHLtoHLH / cLHL), 6))
+            self.LHLN.append(round((cLHLtoHLL / cLHL), 6))
+            self.LHLN.append(round((cLHLtoLHH / cLHL), 6))
+            self.LHLN.append(round((cLHLtoLHL / cLHL), 6))
+            self.LHLN.append(round((cLHLtoLLH / cLHL), 6))
+            self.LHLN.append(round((cLHLtoLLL / cLHL), 6))
+
+            self.LLHN.append(round((cLLHtoHHH / cLLH), 6))
+            self.LLHN.append(round((cLLHtoHHL / cLLH), 6))
+            self.LLHN.append(round((cLLHtoHLH / cLLH), 6))
+            self.LLHN.append(round((cLLHtoHLL / cLLH), 6))
+            self.LLHN.append(round((cLLHtoLHH / cLLH), 6))
+            self.LLHN.append(round((cLLHtoLHL / cLLH), 6))
+            self.LLHN.append(round((cLLHtoLLH / cLLH), 6))
+            self.LLHN.append(round((cLLHtoLLL / cLLH), 6))
+
+            self.LLLN.append(round(cLLLtoHHH, 6))
+            self.LLLN.append(round(cLLLtoHHL, 6))
+            self.LLLN.append(round(cLLLtoHLH, 6))
+            self.LLLN.append(round(cLLLtoHLL, 6))
+            self.LLLN.append(round(cLLLtoLHH, 6))
+            self.LLLN.append(round(cLLLtoLHL, 6))
+            self.LLLN.append(round(cLLLtoLLH, 6))
+            self.LLLN.append(round(cLLLtoLLL, 6))
+        else:
+            self.HHHW.append(round((cHHHtoHHH / cHHH), 6))
+            self.HHHW.append(round((cHHHtoHHL / cHHH), 6))
+            self.HHHW.append(round((cHHHtoHLH / cHHH), 6))
+            self.HHHW.append(round((cHHHtoHLL / cHHH), 6))
+            self.HHHW.append(round((cHHHtoLHH / cHHH), 6))
+            self.HHHW.append(round((cHHHtoLHL / cHHH), 6))
+            self.HHHW.append(round((cHHHtoLLH / cHHH), 6))
+            self.HHHW.append(round((cHHHtoLLL / cHHH), 6))
+
+            self.HHLW.append(round((cHHLtoHHH / cHHL), 6))
+            self.HHLW.append(round((cHHLtoHHL / cHHL), 6))
+            self.HHLW.append(round((cHHLtoHLH / cHHL), 6))
+            self.HHLW.append(round((cHHLtoHLL / cHHL), 6))
+            self.HHLW.append(round((cHHLtoLHH / cHHL), 6))
+            self.HHLW.append(round((cHHLtoLHL / cHHL), 6))
+            self.HHLW.append(round((cHHLtoLLH / cHHL), 6))
+            self.HHLW.append(round((cHHLtoLLL / cHHL), 6))
+
+            self.HLHW.append(round((cHLHtoHHH / cHLH), 6))
+            self.HLHW.append(round((cHLHtoHHL / cHLH), 6))
+            self.HLHW.append(round((cHLHtoHLH / cHLH), 6))
+            self.HLHW.append(round((cHLHtoHLL / cHLH), 6))
+            self.HLHW.append(round((cHLHtoLHH / cHLH), 6))
+            self.HLHW.append(round((cHLHtoLHL / cHLH), 6))
+            self.HLHW.append(round((cHLHtoLLH / cHLH), 6))
+            self.HLHW.append(round((cHLHtoLLL / cHLH), 6))
+
+            self.HLLW.append(round((cHLLtoHHH / cHLL), 6))
+            self.HLLW.append(round((cHLLtoHHL / cHLL), 6))
+            self.HLLW.append(round((cHLLtoHLH / cHLL), 6))
+            self.HLLW.append(round((cHLLtoHLL / cHLL), 6))
+            self.HLLW.append(round((cHLLtoLHH / cHLL), 6))
+            self.HLLW.append(round((cHLLtoLHL / cHLL), 6))
+            self.HLLW.append(round((cHLLtoLLH / cHLL), 6))
+            self.HLLW.append(round((cHLLtoLLL / cHLL), 6))
+
+            self.LHHW.append(round((cLHHtoHHH / cLHH), 6))
+            self.LHHW.append(round((cLHHtoHHL / cLHH), 6))
+            self.LHHW.append(round((cLHHtoHLH / cLHH), 6))
+            self.LHHW.append(round((cLHHtoHLL / cLHH), 6))
+            self.LHHW.append(round((cLHHtoLHH / cLHH), 6))
+            self.LHHW.append(round((cLHHtoLHL / cLHH), 6))
+            self.LHHW.append(round((cLHHtoLLH / cLHH), 6))
+            self.LHHW.append(round((cLHHtoLLL / cLHH), 6))
+
+            self.LHLW.append(round((cLHLtoHHH / cLHL), 6))
+            self.LHLW.append(round((cLHLtoHHL / cLHL), 6))
+            self.LHLW.append(round((cLHLtoHLH / cLHL), 6))
+            self.LHLW.append(round((cLHLtoHLL / cLHL), 6))
+            self.LHLW.append(round((cLHLtoLHH / cLHL), 6))
+            self.LHLW.append(round((cLHLtoLHL / cLHL), 6))
+            self.LHLW.append(round((cLHLtoLLH / cLHL), 6))
+            self.LHLW.append(round((cLHLtoLLL / cLHL), 6))
+
+            self.LLHW.append(round((cLLHtoHHH / cLLH), 6))
+            self.LLHW.append(round((cLLHtoHHL / cLLH), 6))
+            self.LLHW.append(round((cLLHtoHLH / cLLH), 6))
+            self.LLHW.append(round((cLLHtoHLL / cLLH), 6))
+            self.LLHW.append(round((cLLHtoLHH / cLLH), 6))
+            self.LLHW.append(round((cLLHtoLHL / cLLH), 6))
+            self.LLHW.append(round((cLLHtoLLH / cLLH), 6))
+            self.LLHW.append(round((cLLHtoLLL / cLLH), 6))
+
+            self.LLLW.append(round(cLLLtoHHH, 6))
+            self.LLLW.append(round(cLLLtoHHL, 6))
+            self.LLLW.append(round(cLLLtoHLH, 6))
+            self.LLLW.append(round(cLLLtoHLL, 6))
+            self.LLLW.append(round(cLLLtoLHH, 6))
+            self.LLLW.append(round(cLLLtoLHL, 6))
+            self.LLLW.append(round(cLLLtoLLH, 6))
+            self.LLLW.append(round(cLLLtoLLL, 6))
+
+    def print_probabilities(self, action: str):
+        if action == 'E':
+            print("\nAction E probabilities:")
+            self.get_action('E')
+            print("-----HHH-----")
+            print("TO HHH:", self.HHHE[0])
+            print("TO HHL:", self.HHHE[1])
+            print("TO HLH:", self.HHHE[2])
+            print("TO HLL:", self.HHHE[3])
+            print("TO LHH:", self.HHHE[4])
+            print("TO LHL:", self.HHHE[5])
+            print("TO LLH:", self.HHHE[6])
+            print("TO LLL:", self.HHHE[7])
+            print("-----HHL-----")
+            print("TO HHH:", self.HHLE[0])
+            print("TO HHL:", self.HHLE[1])
+            print("TO HLH:", self.HHLE[2])
+            print("TO HLL:", self.HHLE[3])
+            print("TO LHH:", self.HHLE[4])
+            print("TO LHL:", self.HHLE[5])
+            print("TO LLH:", self.HHLE[6])
+            print("TO LLL:", self.HHLE[7])
+            print("-----HLH-----")
+            print("TO HHH:", self.HLHE[0])
+            print("TO HHL:", self.HLHE[1])
+            print("TO HLH:", self.HLHE[2])
+            print("TO HLL:", self.HLHE[3])
+            print("TO LHH:", self.HLHE[4])
+            print("TO LHL:", self.HLHE[5])
+            print("TO LLH:", self.HLHE[6])
+            print("TO LLL:", self.HLHE[7])
+            print("-----HLL-----")
+            print("TO HHH:", self.HLLE[0])
+            print("TO HHL:", self.HLLE[1])
+            print("TO HLH:", self.HLLE[2])
+            print("TO HLL:", self.HLLE[3])
+            print("TO LHH:", self.HLLE[4])
+            print("TO LHL:", self.HLLE[5])
+            print("TO LLH:", self.HLLE[6])
+            print("TO LLL:", self.HLLE[7])
+            print("-----LHH-----")
+            print("TO HHH:", self.LHHE[0])
+            print("TO HHL:", self.LHHE[1])
+            print("TO HLH:", self.LHHE[2])
+            print("TO HLL:", self.LHHE[3])
+            print("TO LHH:", self.LHHE[4])
+            print("TO LHL:", self.LHHE[5])
+            print("TO LLH:", self.LHHE[6])
+            print("TO LLL:", self.LHHE[7])
+            print("-----LHL-----")
+            print("TO HHH:", self.LHLE[0])
+            print("TO HHL:", self.LHLE[1])
+            print("TO HLH:", self.LHLE[2])
+            print("TO HLL:", self.LHLE[3])
+            print("TO LHH:", self.LHLE[4])
+            print("TO LHL:", self.LHLE[5])
+            print("TO LLH:", self.LHLE[6])
+            print("TO LLL:", self.LHLE[7])
+            print("-----LLH-----")
+            print("TO HHH:", self.LLHE[0])
+            print("TO HHL:", self.LLHE[1])
+            print("TO HLH:", self.LLHE[2])
+            print("TO HLL:", self.LLHE[3])
+            print("TO LHH:", self.LLHE[4])
+            print("TO LHL:", self.LLHE[5])
+            print("TO LLH:", self.LLHE[6])
+            print("TO LLL:", self.LLHE[7])
+            print("-----LLL-----")
+            print("TO HHH:", self.LLLE[0])
+            print("TO HHL:", self.LLLE[1])
+            print("TO HLH:", self.LLLE[2])
+            print("TO HLL:", self.LLLE[3])
+            print("TO LHH:", self.LLLE[4])
+            print("TO LHL:", self.LLLE[5])
+            print("TO LLH:", self.LLLE[6])
+            print("TO LLL:", self.LLLE[7])
+
+        elif action == 'N':
+            print("\nAction N probabilities:")
+            self.get_action('N')
+            print("-----HHH-----")
+            print("TO HHH:", self.HHHN[0])
+            print("TO HHL:", self.HHHN[1])
+            print("TO HLH:", self.HHHN[2])
+            print("TO HLL:", self.HHHN[3])
+            print("TO LHH:", self.HHHN[4])
+            print("TO LHL:", self.HHHN[5])
+            print("TO LLH:", self.HHHN[6])
+            print("TO LLL:", self.HHHN[7])
+            print("-----HHL-----")
+            print("TO HHH:", self.HHLN[0])
+            print("TO HHL:", self.HHLN[1])
+            print("TO HLH:", self.HHLN[2])
+            print("TO HLL:", self.HHLN[3])
+            print("TO LHH:", self.HHLN[4])
+            print("TO LHL:", self.HHLN[5])
+            print("TO LLH:", self.HHLN[6])
+            print("TO LLL:", self.HHLN[7])
+            print("-----HLH-----")
+            print("TO HHH:", self.HLHN[0])
+            print("TO HHL:", self.HLHN[1])
+            print("TO HLH:", self.HLHN[2])
+            print("TO HLL:", self.HLHN[3])
+            print("TO LHH:", self.HLHN[4])
+            print("TO LHL:", self.HLHN[5])
+            print("TO LLH:", self.HLHN[6])
+            print("TO LLL:", self.HLHN[7])
+            print("-----HLL-----")
+            print("TO HHH:", self.HLLN[0])
+            print("TO HHL:", self.HLLN[1])
+            print("TO HLH:", self.HLLN[2])
+            print("TO HLL:", self.HLLN[3])
+            print("TO LHH:", self.HLLN[4])
+            print("TO LHL:", self.HLLN[5])
+            print("TO LLH:", self.HLLN[6])
+            print("TO LLL:", self.HLLN[7])
+            print("-----LHH-----")
+            print("TO HHH:", self.LHHN[0])
+            print("TO HHL:", self.LHHN[1])
+            print("TO HLH:", self.LHHN[2])
+            print("TO HLL:", self.LHHN[3])
+            print("TO LHH:", self.LHHN[4])
+            print("TO LHL:", self.LHHN[5])
+            print("TO LLH:", self.LHHN[6])
+            print("TO LLL:", self.LHHN[7])
+            print("-----LHL-----")
+            print("TO HHH:", self.LHLN[0])
+            print("TO HHL:", self.LHLN[1])
+            print("TO HLH:", self.LHLN[2])
+            print("TO HLL:", self.LHLN[3])
+            print("TO LHH:", self.LHLN[4])
+            print("TO LHL:", self.LHLN[5])
+            print("TO LLH:", self.LHLN[6])
+            print("TO LLL:", self.LHLN[7])
+            print("-----LLH-----")
+            print("TO HHH:", self.LLHN[0])
+            print("TO HHL:", self.LLHN[1])
+            print("TO HLH:", self.LLHN[2])
+            print("TO HLL:", self.LLHN[3])
+            print("TO LHH:", self.LLHN[4])
+            print("TO LHL:", self.LLHN[5])
+            print("TO LLH:", self.LLHN[6])
+            print("TO LLL:", self.LLHN[7])
+            print("-----LLL-----")
+            print("TO HHH:", self.LLLN[0])
+            print("TO HHL:", self.LLLN[1])
+            print("TO HLH:", self.LLLN[2])
+            print("TO HLL:", self.LLLN[3])
+            print("TO LHH:", self.LLLN[4])
+            print("TO LHL:", self.LLLN[5])
+            print("TO LLH:", self.LLLN[6])
+            print("TO LLL:", self.LLLN[7])
+
+        else:
+            print("\nAction W probabilities:")
+            self.get_action('W')
+            print("-----HHH-----")
+            print("TO HHH:", self.HHHW[0])
+            print("TO HHL:", self.HHHW[1])
+            print("TO HLH:", self.HHHW[2])
+            print("TO HLL:", self.HHHW[3])
+            print("TO LHH:", self.HHHW[4])
+            print("TO LHL:", self.HHHW[5])
+            print("TO LLH:", self.HHHW[6])
+            print("TO LLL:", self.HHHW[7])
+            print("-----HHL-----")
+            print("TO HHH:", self.HHLW[0])
+            print("TO HHL:", self.HHLW[1])
+            print("TO HLH:", self.HHLW[2])
+            print("TO HLL:", self.HHLW[3])
+            print("TO LHH:", self.HHLW[4])
+            print("TO LHL:", self.HHLW[5])
+            print("TO LLH:", self.HHLW[6])
+            print("TO LLL:", self.HHLW[7])
+            print("-----HLH-----")
+            print("TO HHH:", self.HLHW[0])
+            print("TO HHL:", self.HLHW[1])
+            print("TO HLH:", self.HLHW[2])
+            print("TO HLL:", self.HLHW[3])
+            print("TO LHH:", self.HLHW[4])
+            print("TO LHL:", self.HLHW[5])
+            print("TO LLH:", self.HLHW[6])
+            print("TO LLL:", self.HLHW[7])
+            print("-----HLL-----")
+            print("TO HHH:", self.HLLW[0])
+            print("TO HHL:", self.HLLW[1])
+            print("TO HLH:", self.HLLW[2])
+            print("TO HLL:", self.HLLW[3])
+            print("TO LHH:", self.HLLW[4])
+            print("TO LHL:", self.HLLW[5])
+            print("TO LLH:", self.HLLW[6])
+            print("TO LLL:", self.HLLW[7])
+            print("-----LHH-----")
+            print("TO HHH:", self.LHHW[0])
+            print("TO HHL:", self.LHHW[1])
+            print("TO HLH:", self.LHHW[2])
+            print("TO HLL:", self.LHHW[3])
+            print("TO LHH:", self.LHHW[4])
+            print("TO LHL:", self.LHHW[5])
+            print("TO LLH:", self.LHHW[6])
+            print("TO LLL:", self.LHHW[7])
+            print("-----LHL-----")
+            print("TO HHH:", self.LHLW[0])
+            print("TO HHL:", self.LHLW[1])
+            print("TO HLH:", self.LHLW[2])
+            print("TO HLL:", self.LHLW[3])
+            print("TO LHH:", self.LHLW[4])
+            print("TO LHL:", self.LHLW[5])
+            print("TO LLH:", self.LHLW[6])
+            print("TO LLL:", self.LHLW[7])
+            print("-----LLH-----")
+            print("TO HHH:", self.LLHW[0])
+            print("TO HHL:", self.LLHW[1])
+            print("TO HLH:", self.LLHW[2])
+            print("TO HLL:", self.LLHW[3])
+            print("TO LHH:", self.LLHW[4])
+            print("TO LHL:", self.LLHW[5])
+            print("TO LLH:", self.LLHW[6])
+            print("TO LLL:", self.LLHW[7])
+            print("-----LLL-----")
+            print("TO HHH:", self.LLLW[0])
+            print("TO HHL:", self.LLLW[1])
+            print("TO HLH:", self.LLLW[2])
+            print("TO HLL:", self.LLLW[3])
+            print("TO LHH:", self.LLLW[4])
+            print("TO LHL:", self.LLLW[5])
+            print("TO LLH:", self.LLLW[6])
+            print("TO LLL:", self.LLLW[7])
 
     def bellman_equations(self, prev_costs: list, state: str, iteration: int) -> list:
         costN = self.bellman_costN(iteration, prev_costs, state)
@@ -531,136 +679,94 @@ class GetActionProbabilities:
     def bellman_costN(self, iteration, prev_costs, state):
         self.get_action('N')
         if state == 'HHH':
-            state_probs = self.HHH
+            state_probs = self.HHHN
         elif state == 'HHL':
-            state_probs = self.HHL
+            state_probs = self.HHLN
         elif state == 'HLH':
-            state_probs = self.HLH
+            state_probs = self.HLHN
         elif state == 'HLL':
-            state_probs = self.HLL
+            state_probs = self.HLLN
         elif state == 'LHH':
-            state_probs = self.LHH
+            state_probs = self.LHHN
         elif state == 'LHL':
-            state_probs = self.LHL
+            state_probs = self.LHLN
         elif state == 'LLH':
-            state_probs = self.LLH
+            state_probs = self.LLHN
         else:
-            state_probs = self.LLL
+            state_probs = self.LLLN
         costN = (self.costN +
                  state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
                  state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
                  state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
                  state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
-        if state == 'HHH':
-            prev_costs[iteration][0] = costN
-        elif state == 'HHL':
-            prev_costs[iteration][1] = costN
-        elif state == 'HLH':
-            prev_costs[iteration][2] = costN
-        elif state == 'HLL':
-            prev_costs[iteration][3] = costN
-        elif state == 'LHH':
-            prev_costs[iteration][4] = costN
-        elif state == 'LHL':
-            prev_costs[iteration][5] = costN
-        elif state == 'LLH':
-            prev_costs[iteration][6] = costN
-        else:
-            prev_costs[iteration][7] = costN
         return costN
 
     def bellman_costE(self, iteration, prev_costs, state):
         self.get_action('E')
         if state == 'HHH':
-            state_probs = self.HHH
+            state_probs = self.HHHE
         elif state == 'HHL':
-            state_probs = self.HHL
+            state_probs = self.HHLE
         elif state == 'HLH':
-            state_probs = self.HLH
+            state_probs = self.HLHE
         elif state == 'HLL':
-            state_probs = self.HLL
+            state_probs = self.HLLE
         elif state == 'LHH':
-            state_probs = self.LHH
+            state_probs = self.LHHE
         elif state == 'LHL':
-            state_probs = self.LHL
+            state_probs = self.LHLE
         elif state == 'LLH':
-            state_probs = self.LLH
+            state_probs = self.LLHE
         else:
-            state_probs = self.LLL
+            state_probs = self.LLLE
         costE = (self.costE +
                  state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
                  state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
                  state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
                  state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
-        if state == 'HHH':
-            prev_costs[iteration][0] = costE
-        elif state == 'HHL':
-            prev_costs[iteration][1] = costE
-        elif state == 'HLH':
-            prev_costs[iteration][2] = costE
-        elif state == 'HLL':
-            prev_costs[iteration][3] = costE
-        elif state == 'LHH':
-            prev_costs[iteration][4] = costE
-        elif state == 'LHL':
-            prev_costs[iteration][5] = costE
-        elif state == 'LLH':
-            prev_costs[iteration][6] = costE
-        else:
-            prev_costs[iteration][7] = costE
         return costE
 
     def bellman_costW(self, iteration, prev_costs, state):
         self.get_action('W')
         if state == 'HHH':
-            state_probs = self.HHH
+            state_probs = self.HHHW
         elif state == 'HHL':
-            state_probs = self.HHL
+            state_probs = self.HHLW
         elif state == 'HLH':
-            state_probs = self.HLH
+            state_probs = self.HLHW
         elif state == 'HLL':
-            state_probs = self.HLL
+            state_probs = self.HLLW
         elif state == 'LHH':
-            state_probs = self.LHH
+            state_probs = self.LHHW
         elif state == 'LHL':
-            state_probs = self.LHL
+            state_probs = self.LHLW
         elif state == 'LLH':
-            state_probs = self.LLH
+            state_probs = self.LLHW
         else:
-            state_probs = self.LLL
+            state_probs = self.LLLW
         costW = (self.costW +
                  state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
                  state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
                  state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
                  state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
-        if state == 'HHH':
-            prev_costs[iteration][0] = costW
-        elif state == 'HHL':
-            prev_costs[iteration][1] = costW
-        elif state == 'HLH':
-            prev_costs[iteration][2] = costW
-        elif state == 'HLL':
-            prev_costs[iteration][3] = costW
-        elif state == 'LHH':
-            prev_costs[iteration][4] = costW
-        elif state == 'LHL':
-            prev_costs[iteration][5] = costW
-        elif state == 'LLH':
-            prev_costs[iteration][6] = costW
-        else:
-            prev_costs[iteration][7] = costW
         return costW
 
 
 my_class = GetActionProbabilities()
-my_class.print_probabilitiesE()
-my_class.print_probabilitiesN()
-my_class.print_probabilitiesW()
-"""prev_costs = my_class.bellman_equations(my_class.previous_costs, 'HHH', 1)
-print(prev_costs)
-for a in range(2, 10):
+# my_class.print_probabilities('N')
+# my_class.print_probabilities('E')
+# my_class.print_probabilities('W')
+prev_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
+for a in range(1, 100):
     prev_costs = my_class.bellman_equations(prev_costs, 'HHH', a)
-    # HAY QUE PONER TODOS LOS ESTADOS CADA ITERATION DEL LOOP PORQUE SINO VA A DAR LIST INDEX OUT OF RANGE
+    prev_costs = my_class.bellman_equations(prev_costs, 'HHL', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'HLH', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'HLL', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'LHH', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'LHL', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'LLH', a)
+    prev_costs = my_class.bellman_equations(prev_costs, 'LLL', a)
+    print("\nThis is the %i iteration", a)
     for i in range(8):
         if i == 0:
             print("V(HHH): ", prev_costs[i])
@@ -677,6 +783,6 @@ for a in range(2, 10):
         elif i == 6:
             print("V(LLH): ", prev_costs[i])
         else:
-            print("V(LLL): ", prev_costs[i])"""
+            print("V(LLL): ", prev_costs[i])
 
 
