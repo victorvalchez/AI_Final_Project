@@ -205,32 +205,16 @@ class GetActionProbabilities:
                         cLLLtoLLL += 1
                     cLLL += 1
 
-        print("-----HHH-----")
-        print("TO HHH:", round((cHHHtoHHH / cHHH), 6))
         self.HHH.append(round((cHHHtoHHH / cHHH), 6))
-
-        print("TO HHL:", round((cHHHtoHHL / cHHH), 6))
         self.HHH.append(round((cHHHtoHHL / cHHH), 6))
-
-        print("TO HLH:", round((cHHHtoHLH / cHHH), 6))
         self.HHH.append(round((cHHHtoHLH / cHHH), 6))
-
-        print("TO HLL:", round((cHHHtoHLL / cHHH), 6))
         self.HHH.append(round((cHHHtoHLL / cHHH), 6))
-
-        print("TO LHH:", round((cHHHtoLHH / cHHH), 6))
         self.HHH.append(round((cHHHtoLHH / cHHH), 6))
-
-        print("TO LHL:", round((cHHHtoLHL / cHHH), 6))
         self.HHH.append(round((cHHHtoLHL / cHHH), 6))
-
-        print("TO LLH:", round((cHHHtoLLH / cHHH), 6))
         self.HHH.append(round((cHHHtoLLH / cHHH), 6))
-
-        print("TO LLL:", round((cHHHtoLLL / cHHH), 6))
         self.HHH.append(round((cHHHtoLLL / cHHH), 6))
         print("TOTAL HHH:", cHHH)
-        print("---------------------------\n")
+        print("------------------\n")
         print("-----HHL-----")
         print("TO HHH:", round((cHHLtoHHH / cHHL), 6))
         print("TO HHL:", round((cHHLtoHHL / cHHL), 6))
@@ -311,11 +295,21 @@ class GetActionProbabilities:
 
     def print_probabilities(self):
         print("\nAction E probabilities:")
-        self.get_action('E')
-        print("\nAction N probabilities:")
         self.get_action('N')
-        print("\nAction W probabilities:")
-        self.get_action('W')
+        print("-----HHH-----")
+        print("TO HHH:", self.HHH[0])
+        print("TO HHL:", self.HHH[1])
+        print("TO HLH:", self.HHH[2])
+        print("TO HLL:", self.HHH[3])
+        print("TO LHH:", self.HHH[4])
+        print("TO LHL:", self.HHH[5])
+        print("TO LLH:", self.HHH[6])
+        print("TO LLL:", self.HHH[7])
+        print("--------------\n")
+        #print("\nAction N probabilities:")
+        #self.get_action('N')
+        #print("\nAction W probabilities:")
+        #self.get_action('W')
 
     def bellman_equations(self, prev_costs: list, state: str, iteration: int) -> list:
         costN = self.bellman_costN(iteration, prev_costs, state)
@@ -465,7 +459,8 @@ class GetActionProbabilities:
 
 
 my_class = GetActionProbabilities()
-prev_costs = my_class.bellman_equations(my_class.previous_costs, 'HHH', 1)
+my_class.print_probabilities()
+"""prev_costs = my_class.bellman_equations(my_class.previous_costs, 'HHH', 1)
 print(prev_costs)
 for a in range(2, 10):
     prev_costs = my_class.bellman_equations(prev_costs, 'HHH', a)
@@ -486,6 +481,6 @@ for a in range(2, 10):
         elif i == 6:
             print("V(LLH): ", prev_costs[i])
         else:
-            print("V(LLL): ", prev_costs[i])
+            print("V(LLL): ", prev_costs[i])"""
 
 
