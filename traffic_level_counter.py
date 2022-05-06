@@ -2,6 +2,7 @@ import csv
 
 
 class GetActionProbabilities:
+    # Cuanto mas alto el coste mas tarda en normalizarse
     costN, costE, costW = 1, 1, 1
     HHHE, HHLE, HLHE, HLLE, LHHE, LHLE, LLHE, LLLE = [], [], [], [], [], [], [], []
     HHHN, HHLN, HLHN, HLLN, LHHN, LHLN, LLHN, LLLN = [], [], [], [], [], [], [], []
@@ -657,7 +658,7 @@ class GetActionProbabilities:
         costN = self.bellman_costN(iteration, prev_costs, state)
         costE = self.bellman_costE(iteration, prev_costs, state)
         costW = self.bellman_costW(iteration, prev_costs, state)
-        min_cost = min(costN, costW, costE)
+        min_cost = round(min(costN, costW, costE), 2)
         if state == 'HHH':
             prev_costs[0].append(min_cost)
         elif state == 'HHL':
