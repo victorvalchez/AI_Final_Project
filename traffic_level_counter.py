@@ -2,10 +2,9 @@ import csv
 
 
 class GetActionProbabilities:
-    costN, costE, costW = 0, 0, 0
+    costN, costE, costW = 1, 1, 1
     HHH, HHL, HLH, HLL, LHH, LHL, LLH, LLL = [], [], [], [], [], [], [], []
-
-
+    previous_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
 
     @staticmethod
     def read_csv(file):
@@ -318,25 +317,175 @@ class GetActionProbabilities:
         print("\nAction W probabilities:")
         self.get_action('W')
 
-    def bellman_equations(self, state_probs: list, prev_costs: list, state: str) -> list:
-        cost = min(self.costN + state_probs[0]*prev_costHHH +state_probs[1]*)
+    def bellman_equations(self, prev_costs: list, state: str, iteration: int) -> list:
+        costN = self.bellman_costN(iteration, prev_costs, state)
+        costE = self.bellman_costE(iteration, prev_costs, state)
+        costW = self.bellman_costW(iteration, prev_costs, state)
+        min_cost = min(costN, costW, costE)
         if state == 'HHH':
-            prev_costs[0] == cost
+            prev_costs[0].append(min_cost)
         elif state == 'HHL':
-            prev_costs[1] == cost
+            prev_costs[1].append(min_cost)
         elif state == 'HLH':
-            prev_costs[2] == cost
+            prev_costs[2].append(min_cost)
         elif state == 'HLL':
-            prev_costs[3] == cost
+            prev_costs[3].append(min_cost)
         elif state == 'LHH':
-            prev_costs[4] == cost
+            prev_costs[4].append(min_cost)
         elif state == 'LHL':
-            prev_costs[5] == cost
+            prev_costs[5].append(min_cost)
         elif state == 'LLH':
-            prev_costs[6] == cost
+            prev_costs[6].append(min_cost)
         else:
-            prev_costs[7] == cost
-        return cost
+            prev_costs[7].append(min_cost)
+        return prev_costs
+
+    def bellman_costN(self, iteration, prev_costs, state):
+        self.get_action('N')
+        if state == 'HHH':
+            state_probs = self.HHH
+        elif state == 'HHL':
+            state_probs = self.HHL
+        elif state == 'HLH':
+            state_probs = self.HLH
+        elif state == 'HLL':
+            state_probs = self.HLL
+        elif state == 'LHH':
+            state_probs = self.LHH
+        elif state == 'LHL':
+            state_probs = self.LHL
+        elif state == 'LLH':
+            state_probs = self.LLH
+        else:
+            state_probs = self.LLL
+        costN = (self.costN +
+                 state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
+                 state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
+                 state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
+                 state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
+        if state == 'HHH':
+            prev_costs[iteration][0] = costN
+        elif state == 'HHL':
+            prev_costs[iteration][1] = costN
+        elif state == 'HLH':
+            prev_costs[iteration][2] = costN
+        elif state == 'HLL':
+            prev_costs[iteration][3] = costN
+        elif state == 'LHH':
+            prev_costs[iteration][4] = costN
+        elif state == 'LHL':
+            prev_costs[iteration][5] = costN
+        elif state == 'LLH':
+            prev_costs[iteration][6] = costN
+        else:
+            prev_costs[iteration][7] = costN
+        return costN
+
+    def bellman_costE(self, iteration, prev_costs, state):
+        self.get_action('E')
+        if state == 'HHH':
+            state_probs = self.HHH
+        elif state == 'HHL':
+            state_probs = self.HHL
+        elif state == 'HLH':
+            state_probs = self.HLH
+        elif state == 'HLL':
+            state_probs = self.HLL
+        elif state == 'LHH':
+            state_probs = self.LHH
+        elif state == 'LHL':
+            state_probs = self.LHL
+        elif state == 'LLH':
+            state_probs = self.LLH
+        else:
+            state_probs = self.LLL
+        costE = (self.costE +
+                 state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
+                 state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
+                 state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
+                 state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
+        if state == 'HHH':
+            prev_costs[iteration][0] = costE
+        elif state == 'HHL':
+            prev_costs[iteration][1] = costE
+        elif state == 'HLH':
+            prev_costs[iteration][2] = costE
+        elif state == 'HLL':
+            prev_costs[iteration][3] = costE
+        elif state == 'LHH':
+            prev_costs[iteration][4] = costE
+        elif state == 'LHL':
+            prev_costs[iteration][5] = costE
+        elif state == 'LLH':
+            prev_costs[iteration][6] = costE
+        else:
+            prev_costs[iteration][7] = costE
+        return costE
+
+    def bellman_costW(self, iteration, prev_costs, state):
+        self.get_action('W')
+        if state == 'HHH':
+            state_probs = self.HHH
+        elif state == 'HHL':
+            state_probs = self.HHL
+        elif state == 'HLH':
+            state_probs = self.HLH
+        elif state == 'HLL':
+            state_probs = self.HLL
+        elif state == 'LHH':
+            state_probs = self.LHH
+        elif state == 'LHL':
+            state_probs = self.LHL
+        elif state == 'LLH':
+            state_probs = self.LLH
+        else:
+            state_probs = self.LLL
+        costW = (self.costW +
+                 state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
+                 state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
+                 state_probs[4] * prev_costs[4][iteration - 1] + state_probs[5] * prev_costs[5][iteration - 1] +
+                 state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
+        if state == 'HHH':
+            prev_costs[iteration][0] = costW
+        elif state == 'HHL':
+            prev_costs[iteration][1] = costW
+        elif state == 'HLH':
+            prev_costs[iteration][2] = costW
+        elif state == 'HLL':
+            prev_costs[iteration][3] = costW
+        elif state == 'LHH':
+            prev_costs[iteration][4] = costW
+        elif state == 'LHL':
+            prev_costs[iteration][5] = costW
+        elif state == 'LLH':
+            prev_costs[iteration][6] = costW
+        else:
+            prev_costs[iteration][7] = costW
+        return costW
 
 
-GetActionProbabilities().print_probabilities()
+my_class = GetActionProbabilities()
+prev_costs = my_class.bellman_equations(my_class.previous_costs, 'HHH', 1)
+print(prev_costs)
+for a in range(2, 10):
+    prev_costs = my_class.bellman_equations(prev_costs, 'HHH', a)
+    # HAY QUE PONER TODOS LOS ESTADOS CADA ITERATION DEL LOOP PORQUE SINO VA A DAR LIST INDEX OUT OF RANGE
+    for i in range(8):
+        if i == 0:
+            print("V(HHH): ", prev_costs[i])
+        elif i == 1:
+            print("V(HHL): ", prev_costs[i])
+        elif i == 2:
+            print("V(HLH): ", prev_costs[i])
+        elif i == 3:
+            print("V(HLL): ", prev_costs[i])
+        elif i == 4:
+            print("V(LHH): ", prev_costs[i])
+        elif i == 5:
+            print("V(LHL): ", prev_costs[i])
+        elif i == 6:
+            print("V(LLH): ", prev_costs[i])
+        else:
+            print("V(LLL): ", prev_costs[i])
+
+
