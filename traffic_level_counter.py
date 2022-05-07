@@ -8,6 +8,8 @@ class GetActionProbabilities:
     HHHN, HHLN, HLHN, HLLN, LHHN, LHLN, LLHN, LLLN = [], [], [], [], [], [], [], []
     HHHW, HHLW, HLHW, HLLW, LHHW, LHLW, LLHW, LLLW = [], [], [], [], [], [], [], []
     previous_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
+    final_state_values = []
+    optimal_policy_dict = {'HHH': '', 'HHL': '', 'HLH': '', 'HLL': '', 'LHH': '', 'LHL': '', 'LLH': '', 'LLL': ''}
 
     @staticmethod
     def read_csv(file):
@@ -658,7 +660,7 @@ class GetActionProbabilities:
         costN = self.bellman_costN(iteration, previous_costs_list, state)
         costE = self.bellman_costE(iteration, previous_costs_list, state)
         costW = self.bellman_costW(iteration, previous_costs_list, state)
-        min_cost = round(min(costN, costW, costE), 6)
+        min_cost = round(min(costN, costW, costE), 2)
         if state == 'HHH':
             previous_costs_list[0].append(min_cost)
         elif state == 'HHL':
@@ -752,82 +754,196 @@ class GetActionProbabilities:
                  state_probs[6] * prev_costs[6][iteration - 1] + state_probs[7] * prev_costs[7][iteration - 1])
         return costW
 
+    def get_states_value(self):
+        flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8 = False, False, False, False, False, False, False, False
+        flag_all = False
+        final_pos = 0
+
+        for a in range(1, 200):
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'HHH', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'HHL', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'HLH', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'HLL', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'LHH', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'LHL', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'LLH', a)
+            self.previous_costs = self.bellman_equations(self.previous_costs, 'LLL', a)
+            """print("\nThis is the", a, "iteration")
+                for i in range(8):
+                    if i == 0:
+                        print("V(HHH): ", prev_costs[i])
+                    elif i == 1:
+                        print("V(HHL): ", prev_costs[i])
+                    elif i == 2:
+                        print("V(HLH): ", prev_costs[i])
+                    elif i == 3:
+                        print("V(HLL): ", prev_costs[i])
+                    elif i == 4:
+                        print("V(LHH): ", prev_costs[i])
+                    elif i == 5:
+                        print("V(LHL): ", prev_costs[i])
+                    elif i == 6:
+                        print("V(LLH): ", prev_costs[i])
+                    else:
+                        print("V(LLL): ", prev_costs[i])"""
+
+            if self.previous_costs[0][a] == self.previous_costs[0][a - 1]:
+                flag1 = True
+            if self.previous_costs[1][a] == self.previous_costs[1][a - 1]:
+                flag2 = True
+            if self.previous_costs[2][a] == self.previous_costs[2][a - 1]:
+                flag3 = True
+            if self.previous_costs[3][a] == self.previous_costs[3][a - 1]:
+                flag4 = True
+            if self.previous_costs[4][a] == self.previous_costs[4][a - 1]:
+                flag5 = True
+            if self.previous_costs[5][a] == self.previous_costs[5][a - 1]:
+                flag6 = True
+            if self.previous_costs[6][a] == self.previous_costs[6][a - 1]:
+                flag7 = True
+            if self.previous_costs[7][a] == self.previous_costs[7][a - 1]:
+                flag8 = True
+
+            if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
+                flag_all = True
+
+            if flag_all:
+                final_pos = a
+                break
+
+        print("Number of iterations:", final_pos)
+        for i in range(8):
+            if i == 0:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(HHH): ", self.previous_costs[i][final_pos])
+            elif i == 1:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(HHL): ", self.previous_costs[i][final_pos])
+            elif i == 2:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(HLH): ", self.previous_costs[i][final_pos])
+            elif i == 3:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(HLL): ", self.previous_costs[i][final_pos])
+            elif i == 4:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(LHH): ", self.previous_costs[i][final_pos])
+            elif i == 5:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(LHL): ", self.previous_costs[i][final_pos])
+            elif i == 6:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(LLH): ", self.previous_costs[i][final_pos])
+            else:
+                self.final_state_values.append(self.previous_costs[i][final_pos])
+                print("V(LLL): ", self.previous_costs[i][final_pos])
+
+    def optimal_policy(self, final_state_vals, state):
+        costN = self.optimalN(final_state_vals, state)
+        costE = self.optimalE(final_state_vals, state)
+        costW = self.optimalW(final_state_vals, state)
+        min_cost = round(min(costN, costW, costE), 2)
+        if state == 'HHH':
+            self.optimal_policy_dict['HHH'] = min_cost
+        elif state == 'HHL':
+            self.optimal_policy_dict['HHL'] = min_cost
+        elif state == 'HLH':
+            self.optimal_policy_dict['HLH'] = min_cost
+        elif state == 'HLL':
+            self.optimal_policy_dict['HLL'] = min_cost
+        elif state == 'LHH':
+            self.optimal_policy_dict['LHH'] = min_cost
+        elif state == 'LHL':
+            self.optimal_policy_dict['LHL'] = min_cost
+        elif state == 'LLH':
+            self.optimal_policy_dict['LLH'] = min_cost
+        else:
+            self.optimal_policy_dict['LLL'] = min_cost
+        return self.optimal_policy_dict
+
+    def optimalN(self, final_state_vals, state):
+        if state == 'HHH':
+            state_probs = self.HHHN
+        elif state == 'HHL':
+            state_probs = self.HHLN
+        elif state == 'HLH':
+            state_probs = self.HLHN
+        elif state == 'HLL':
+            state_probs = self.HLLN
+        elif state == 'LHH':
+            state_probs = self.LHHN
+        elif state == 'LHL':
+            state_probs = self.LHLN
+        elif state == 'LLH':
+            state_probs = self.LLHN
+        else:
+            state_probs = self.LLLN
+        costN = (self.costN +
+                 state_probs[0] * final_state_vals[0] + state_probs[1] * final_state_vals[1] +
+                 state_probs[2] * final_state_vals[2] + state_probs[3] * final_state_vals[3] +
+                 state_probs[4] * final_state_vals[4] + state_probs[5] * final_state_vals[5] +
+                 state_probs[6] * final_state_vals[6] + state_probs[7] * final_state_vals[7])
+        return costN
+
+    def optimalE(self, final_state_vals, state):
+        if state == 'HHH':
+            state_probs = self.HHHE
+        elif state == 'HHL':
+            state_probs = self.HHLE
+        elif state == 'HLH':
+            state_probs = self.HLHE
+        elif state == 'HLL':
+            state_probs = self.HLLE
+        elif state == 'LHH':
+            state_probs = self.LHHE
+        elif state == 'LHL':
+            state_probs = self.LHLE
+        elif state == 'LLH':
+            state_probs = self.LLHE
+        else:
+            state_probs = self.LLLE
+        costE = (self.costE +
+                 state_probs[0] * final_state_vals[0] + state_probs[1] * final_state_vals[1] +
+                 state_probs[2] * final_state_vals[2] + state_probs[3] * final_state_vals[3] +
+                 state_probs[4] * final_state_vals[4] + state_probs[5] * final_state_vals[5] +
+                 state_probs[6] * final_state_vals[6] + state_probs[7] * final_state_vals[7])
+        return costE
+
+    def optimalW(self, final_state_vals, state):
+        if state == 'HHH':
+            state_probs = self.HHHW
+        elif state == 'HHL':
+            state_probs = self.HHLW
+        elif state == 'HLH':
+            state_probs = self.HLHW
+        elif state == 'HLL':
+            state_probs = self.HLLW
+        elif state == 'LHH':
+            state_probs = self.LHHW
+        elif state == 'LHL':
+            state_probs = self.LHLW
+        elif state == 'LLH':
+            state_probs = self.LLHW
+        else:
+            state_probs = self.LLLW
+        costW = (self.costW +
+                 state_probs[0] * final_state_vals[0] + state_probs[1] * final_state_vals[1] +
+                 state_probs[2] * final_state_vals[2] + state_probs[3] * final_state_vals[3] +
+                 state_probs[4] * final_state_vals[4] + state_probs[5] * final_state_vals[5] +
+                 state_probs[6] * final_state_vals[6] + state_probs[7] * final_state_vals[7])
+        return costW
+
 
 my_class = GetActionProbabilities()
-# my_class.print_probabilities('N')
-# my_class.print_probabilities('E')
-# my_class.print_probabilities('W')
-prev_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
-flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8 = False, False, False, False, False, False, False, False
-flag_all = False
-final_pos = 0
-for a in range(1, 1000):
-    prev_costs = my_class.bellman_equations(prev_costs, 'HHH', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'HHL', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'HLH', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'HLL', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'LHH', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'LHL', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'LLH', a)
-    prev_costs = my_class.bellman_equations(prev_costs, 'LLL', a)
-    """print("\nThis is the", a, "iteration")
-    for i in range(8):
-        if i == 0:
-            print("V(HHH): ", prev_costs[i])
-        elif i == 1:
-            print("V(HHL): ", prev_costs[i])
-        elif i == 2:
-            print("V(HLH): ", prev_costs[i])
-        elif i == 3:
-            print("V(HLL): ", prev_costs[i])
-        elif i == 4:
-            print("V(LHH): ", prev_costs[i])
-        elif i == 5:
-            print("V(LHL): ", prev_costs[i])
-        elif i == 6:
-            print("V(LLH): ", prev_costs[i])
-        else:
-            print("V(LLL): ", prev_costs[i])"""
+my_class.get_states_value()
+print(my_class.final_state_values)
+my_class.optimal_policy(my_class.final_state_values, 'HHH')
+my_class.optimal_policy(my_class.final_state_values, 'HHL')
+my_class.optimal_policy(my_class.final_state_values, 'HLH')
+my_class.optimal_policy(my_class.final_state_values, 'HLL')
+my_class.optimal_policy(my_class.final_state_values, 'LHH')
+my_class.optimal_policy(my_class.final_state_values, 'LHL')
+my_class.optimal_policy(my_class.final_state_values, 'LLH')
+my_class.optimal_policy(my_class.final_state_values, 'LLL')
+print(my_class.optimal_policy_dict)
 
-    if prev_costs[0][a] == prev_costs[0][a - 1]:
-        flag1 = True
-    if prev_costs[1][a] == prev_costs[1][a - 1]:
-        flag2 = True
-    if prev_costs[2][a] == prev_costs[2][a - 1]:
-        flag3 = True
-    if prev_costs[3][a] == prev_costs[3][a - 1]:
-        flag4 = True
-    if prev_costs[4][a] == prev_costs[4][a - 1]:
-        flag5 = True
-    if prev_costs[5][a] == prev_costs[5][a - 1]:
-        flag6 = True
-    if prev_costs[6][a] == prev_costs[6][a - 1]:
-        flag7 = True
-    if prev_costs[7][a] == prev_costs[7][a - 1]:
-        flag8 = True
-
-    if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
-        flag_all = True
-
-    if flag_all:
-        final_pos = a
-        break
-
-print("Number of iterations:", final_pos)
-for i in range(8):
-    if i == 0:
-        print("V(HHH): ", prev_costs[i][final_pos])
-    elif i == 1:
-        print("V(HHL): ", prev_costs[i][final_pos])
-    elif i == 2:
-        print("V(HLH): ", prev_costs[i][final_pos])
-    elif i == 3:
-        print("V(HLL): ", prev_costs[i][final_pos])
-    elif i == 4:
-        print("V(LHH): ", prev_costs[i][final_pos])
-    elif i == 5:
-        print("V(LHL): ", prev_costs[i][final_pos])
-    elif i == 6:
-        print("V(LLH): ", prev_costs[i][final_pos])
-    else:
-        print("V(LLL): ", prev_costs[i][final_pos])
