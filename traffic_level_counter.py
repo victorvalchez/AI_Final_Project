@@ -654,28 +654,28 @@ class GetActionProbabilities:
             print("TO LLH:", self.LLLW[6])
             print("TO LLL:", self.LLLW[7])
 
-    def bellman_equations(self, prev_costs: list, state: str, iteration: int) -> list:
-        costN = self.bellman_costN(iteration, prev_costs, state)
-        costE = self.bellman_costE(iteration, prev_costs, state)
-        costW = self.bellman_costW(iteration, prev_costs, state)
-        min_cost = round(min(costN, costW, costE), 2)
+    def bellman_equations(self, previous_costs_list: list, state: str, iteration: int) -> list:
+        costN = self.bellman_costN(iteration, previous_costs_list, state)
+        costE = self.bellman_costE(iteration, previous_costs_list, state)
+        costW = self.bellman_costW(iteration, previous_costs_list, state)
+        min_cost = round(min(costN, costW, costE), 6)
         if state == 'HHH':
-            prev_costs[0].append(min_cost)
+            previous_costs_list[0].append(min_cost)
         elif state == 'HHL':
-            prev_costs[1].append(min_cost)
+            previous_costs_list[1].append(min_cost)
         elif state == 'HLH':
-            prev_costs[2].append(min_cost)
+            previous_costs_list[2].append(min_cost)
         elif state == 'HLL':
-            prev_costs[3].append(min_cost)
+            previous_costs_list[3].append(min_cost)
         elif state == 'LHH':
-            prev_costs[4].append(min_cost)
+            previous_costs_list[4].append(min_cost)
         elif state == 'LHL':
-            prev_costs[5].append(min_cost)
+            previous_costs_list[5].append(min_cost)
         elif state == 'LLH':
-            prev_costs[6].append(min_cost)
+            previous_costs_list[6].append(min_cost)
         else:
-            prev_costs[7].append(min_cost)
-        return prev_costs
+            previous_costs_list[7].append(min_cost)
+        return previous_costs_list
 
     def bellman_costN(self, iteration, prev_costs, state):
         self.get_action('N')
@@ -758,7 +758,10 @@ my_class = GetActionProbabilities()
 # my_class.print_probabilities('E')
 # my_class.print_probabilities('W')
 prev_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
-for a in range(1, 100):
+flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8 = False, False, False, False, False, False, False, False
+flag_all = False
+final_pos = 0
+for a in range(1, 1000):
     prev_costs = my_class.bellman_equations(prev_costs, 'HHH', a)
     prev_costs = my_class.bellman_equations(prev_costs, 'HHL', a)
     prev_costs = my_class.bellman_equations(prev_costs, 'HLH', a)
@@ -767,7 +770,7 @@ for a in range(1, 100):
     prev_costs = my_class.bellman_equations(prev_costs, 'LHL', a)
     prev_costs = my_class.bellman_equations(prev_costs, 'LLH', a)
     prev_costs = my_class.bellman_equations(prev_costs, 'LLL', a)
-    print("\nThis is the %i iteration", a)
+    """print("\nThis is the", a, "iteration")
     for i in range(8):
         if i == 0:
             print("V(HHH): ", prev_costs[i])
@@ -784,6 +787,47 @@ for a in range(1, 100):
         elif i == 6:
             print("V(LLH): ", prev_costs[i])
         else:
-            print("V(LLL): ", prev_costs[i])
+            print("V(LLL): ", prev_costs[i])"""
 
+    if prev_costs[0][a] == prev_costs[0][a - 1]:
+        flag1 = True
+    if prev_costs[1][a] == prev_costs[1][a - 1]:
+        flag2 = True
+    if prev_costs[2][a] == prev_costs[2][a - 1]:
+        flag3 = True
+    if prev_costs[3][a] == prev_costs[3][a - 1]:
+        flag4 = True
+    if prev_costs[4][a] == prev_costs[4][a - 1]:
+        flag5 = True
+    if prev_costs[5][a] == prev_costs[5][a - 1]:
+        flag6 = True
+    if prev_costs[6][a] == prev_costs[6][a - 1]:
+        flag7 = True
+    if prev_costs[7][a] == prev_costs[7][a - 1]:
+        flag8 = True
 
+    if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
+        flag_all = True
+
+    if flag_all:
+        final_pos = a
+        break
+
+print("Number of iterations:", final_pos)
+for i in range(8):
+    if i == 0:
+        print("V(HHH): ", prev_costs[i][final_pos])
+    elif i == 1:
+        print("V(HHL): ", prev_costs[i][final_pos])
+    elif i == 2:
+        print("V(HLH): ", prev_costs[i][final_pos])
+    elif i == 3:
+        print("V(HLL): ", prev_costs[i][final_pos])
+    elif i == 4:
+        print("V(LHH): ", prev_costs[i][final_pos])
+    elif i == 5:
+        print("V(LHL): ", prev_costs[i][final_pos])
+    elif i == 6:
+        print("V(LLH): ", prev_costs[i][final_pos])
+    else:
+        print("V(LLL): ", prev_costs[i][final_pos])
