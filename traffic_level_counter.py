@@ -842,23 +842,33 @@ class GetActionProbabilities:
         costN = self.optimalN(final_state_vals, state)
         costE = self.optimalE(final_state_vals, state)
         costW = self.optimalW(final_state_vals, state)
-        min_cost = round(min(costN, costW, costE), 2)
-        if state == 'HHH':
-            self.optimal_policy_dict['HHH'] = min_cost
-        elif state == 'HHL':
-            self.optimal_policy_dict['HHL'] = min_cost
-        elif state == 'HLH':
-            self.optimal_policy_dict['HLH'] = min_cost
-        elif state == 'HLL':
-            self.optimal_policy_dict['HLL'] = min_cost
-        elif state == 'LHH':
-            self.optimal_policy_dict['LHH'] = min_cost
-        elif state == 'LHL':
-            self.optimal_policy_dict['LHL'] = min_cost
-        elif state == 'LLH':
-            self.optimal_policy_dict['LLH'] = min_cost
+        print(costN, costE, costW)
+        min_cost = min(costN, costW, costE)
+        print(min_cost)
+        optimal_action = ''
+        if min_cost == costN:
+            optimal_action = 'N'
+        elif min_cost == costE:
+            optimal_action = 'E'
         else:
-            self.optimal_policy_dict['LLL'] = min_cost
+            optimal_action = 'W'
+
+        if state == 'HHH':
+            self.optimal_policy_dict['HHH'] = optimal_action
+        elif state == 'HHL':
+            self.optimal_policy_dict['HHL'] = optimal_action
+        elif state == 'HLH':
+            self.optimal_policy_dict['HLH'] = optimal_action
+        elif state == 'HLL':
+            self.optimal_policy_dict['HLL'] = optimal_action
+        elif state == 'LHH':
+            self.optimal_policy_dict['LHH'] = optimal_action
+        elif state == 'LHL':
+            self.optimal_policy_dict['LHL'] = optimal_action
+        elif state == 'LLH':
+            self.optimal_policy_dict['LLH'] = optimal_action
+        else:
+            self.optimal_policy_dict['LLL'] = optimal_action
         return self.optimal_policy_dict
 
     def optimalN(self, final_state_vals, state):
@@ -935,7 +945,6 @@ class GetActionProbabilities:
 
 
 my_class = GetActionProbabilities()
-print(my_class.final_state_values)
 my_class.get_states_value()
 my_class.optimal_policy(my_class.final_state_values, 'HHH')
 my_class.optimal_policy(my_class.final_state_values, 'HHL')
@@ -946,3 +955,4 @@ my_class.optimal_policy(my_class.final_state_values, 'LHL')
 my_class.optimal_policy(my_class.final_state_values, 'LLH')
 my_class.optimal_policy(my_class.final_state_values, 'LLL')
 print(my_class.optimal_policy_dict)
+# {'HHH': 'E', 'HHL': 'E', 'HLH': 'W', 'HLL': 'N', 'LHH': 'E', 'LHL': 'E', 'LLH': 'W', 'LLL': 'N'}
