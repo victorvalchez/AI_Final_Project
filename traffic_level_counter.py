@@ -660,7 +660,7 @@ class GetActionProbabilities:
         costN = self.bellman_costN(iteration, previous_costs_list, state)
         costE = self.bellman_costE(iteration, previous_costs_list, state)
         costW = self.bellman_costW(iteration, previous_costs_list, state)
-        min_cost = round(min(costN, costW, costE), 2)
+        min_cost = round(min(costN, costW, costE), 6)
         if state == 'HHH':
             previous_costs_list[0].append(min_cost)
         elif state == 'HHL':
@@ -759,7 +759,7 @@ class GetActionProbabilities:
         flag_all = False
         final_pos = 0
 
-        for a in range(1, 200):
+        for a in range(1, 1000):
             self.previous_costs = self.bellman_equations(self.previous_costs, 'HHH', a)
             self.previous_costs = self.bellman_equations(self.previous_costs, 'HHL', a)
             self.previous_costs = self.bellman_equations(self.previous_costs, 'HLH', a)
@@ -767,25 +767,25 @@ class GetActionProbabilities:
             self.previous_costs = self.bellman_equations(self.previous_costs, 'LHH', a)
             self.previous_costs = self.bellman_equations(self.previous_costs, 'LHL', a)
             self.previous_costs = self.bellman_equations(self.previous_costs, 'LLH', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'LLL', a)
-            """print("\nThis is the", a, "iteration")
-                for i in range(8):
-                    if i == 0:
-                        print("V(HHH): ", prev_costs[i])
-                    elif i == 1:
-                        print("V(HHL): ", prev_costs[i])
-                    elif i == 2:
-                        print("V(HLH): ", prev_costs[i])
-                    elif i == 3:
-                        print("V(HLL): ", prev_costs[i])
-                    elif i == 4:
-                        print("V(LHH): ", prev_costs[i])
-                    elif i == 5:
-                        print("V(LHL): ", prev_costs[i])
-                    elif i == 6:
-                        print("V(LLH): ", prev_costs[i])
-                    else:
-                        print("V(LLL): ", prev_costs[i])"""
+            self.previous_costs[7].append(0)
+            print("\nThis is the", a, "iteration")
+            for i in range(8):
+                if i == 0:
+                    print("V(HHH): ", self.previous_costs[i])
+                elif i == 1:
+                    print("V(HHL): ", self.previous_costs[i])
+                elif i == 2:
+                    print("V(HLH): ", self.previous_costs[i])
+                elif i == 3:
+                    print("V(HLL): ", self.previous_costs[i])
+                elif i == 4:
+                    print("V(LHH): ", self.previous_costs[i])
+                elif i == 5:
+                    print("V(LHL): ", self.previous_costs[i])
+                elif i == 6:
+                    print("V(LLH): ", self.previous_costs[i])
+                else:
+                    print("V(LLL): ", self.previous_costs[i])
 
             if self.previous_costs[0][a] == self.previous_costs[0][a - 1]:
                 flag1 = True
@@ -935,8 +935,8 @@ class GetActionProbabilities:
 
 
 my_class = GetActionProbabilities()
-my_class.get_states_value()
 print(my_class.final_state_values)
+my_class.get_states_value()
 my_class.optimal_policy(my_class.final_state_values, 'HHH')
 my_class.optimal_policy(my_class.final_state_values, 'HHL')
 my_class.optimal_policy(my_class.final_state_values, 'HLH')
@@ -946,4 +946,3 @@ my_class.optimal_policy(my_class.final_state_values, 'LHL')
 my_class.optimal_policy(my_class.final_state_values, 'LLH')
 my_class.optimal_policy(my_class.final_state_values, 'LLL')
 print(my_class.optimal_policy_dict)
-
