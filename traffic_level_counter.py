@@ -4,7 +4,7 @@ import csv
 class GetActionProbabilities:
     # Cuanto mas alto el coste mas tarda en normalizarse
     costN, costE, costW = 1, 1, 1
-    HHHE, HHLE, HLHE, HLLE, LHHE, LHLE, LLHE, LLLE = [], [], [], [], [], [], [], []
+    probE = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
     HHHN, HHLN, HLHN, HLLN, LHHN, LHLN, LLHN, LLLN = [], [], [], [], [], [], [], []
     HHHW, HHLW, HLHW, HLLW, LHHW, LHLW, LLHW, LLLW = [], [], [], [], [], [], [], []
     previous_costs = [[0], [0], [0], [0], [0], [0], [0], [0]]
@@ -211,77 +211,77 @@ class GetActionProbabilities:
                     cLLL += 1
 
         if action == 'E':
-            self.HHHE.append(round((cHHHtoHHH / cHHH), 6))
-            self.HHHE.append(round((cHHHtoHHL / cHHH), 6))
-            self.HHHE.append(round((cHHHtoHLH / cHHH), 6))
-            self.HHHE.append(round((cHHHtoHLL / cHHH), 6))
-            self.HHHE.append(round((cHHHtoLHH / cHHH), 6))
-            self.HHHE.append(round((cHHHtoLHL / cHHH), 6))
-            self.HHHE.append(round((cHHHtoLLH / cHHH), 6))
-            self.HHHE.append(round((cHHHtoLLL / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoHHH / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoHHL / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoHLH / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoHLL / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoLHH / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoLHL / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoLLH / cHHH), 6))
+            self.probE['HHH'].append(round((cHHHtoLLL / cHHH), 6))
 
-            self.HHLE.append(round((cHHLtoHHH / cHHL), 6))
-            self.HHLE.append(round((cHHLtoHHL / cHHL), 6))
-            self.HHLE.append(round((cHHLtoHLH / cHHL), 6))
-            self.HHLE.append(round((cHHLtoHLL / cHHL), 6))
-            self.HHLE.append(round((cHHLtoLHH / cHHL), 6))
-            self.HHLE.append(round((cHHLtoLHL / cHHL), 6))
-            self.HHLE.append(round((cHHLtoLLH / cHHL), 6))
-            self.HHLE.append(round((cHHLtoLLL / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoHHH / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoHHL / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoHLH / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoHLL / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoLHH / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoLHL / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoLLH / cHHL), 6))
+            self.probE['HHL'].append(round((cHHLtoLLL / cHHL), 6))
 
-            self.HLHE.append(round((cHLHtoHHH / cHLH), 6))
-            self.HLHE.append(round((cHLHtoHHL / cHLH), 6))
-            self.HLHE.append(round((cHLHtoHLH / cHLH), 6))
-            self.HLHE.append(round((cHLHtoHLL / cHLH), 6))
-            self.HLHE.append(round((cHLHtoLHH / cHLH), 6))
-            self.HLHE.append(round((cHLHtoLHL / cHLH), 6))
-            self.HLHE.append(round((cHLHtoLLH / cHLH), 6))
-            self.HLHE.append(round((cHLHtoLLL / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoHHH / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoHHL / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoHLH / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoHLL / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoLHH / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoLHL / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoLLH / cHLH), 6))
+            self.probE['HLH'].append(round((cHLHtoLLL / cHLH), 6))
 
-            self.HLLE.append(round((cHLLtoHHH / cHLL), 6))
-            self.HLLE.append(round((cHLLtoHHL / cHLL), 6))
-            self.HLLE.append(round((cHLLtoHLH / cHLL), 6))
-            self.HLLE.append(round((cHLLtoHLL / cHLL), 6))
-            self.HLLE.append(round((cHLLtoLHH / cHLL), 6))
-            self.HLLE.append(round((cHLLtoLHL / cHLL), 6))
-            self.HLLE.append(round((cHLLtoLLH / cHLL), 6))
-            self.HLLE.append(round((cHLLtoLLL / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoHHH / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoHHL / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoHLH / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoHLL / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoLHH / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoLHL / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoLLH / cHLL), 6))
+            self.probE['HLL'].append(round((cHLLtoLLL / cHLL), 6))
 
-            self.LHHE.append(round((cLHHtoHHH / cLHH), 6))
-            self.LHHE.append(round((cLHHtoHHL / cLHH), 6))
-            self.LHHE.append(round((cLHHtoHLH / cLHH), 6))
-            self.LHHE.append(round((cLHHtoHLL / cLHH), 6))
-            self.LHHE.append(round((cLHHtoLHH / cLHH), 6))
-            self.LHHE.append(round((cLHHtoLHL / cLHH), 6))
-            self.LHHE.append(round((cLHHtoLLH / cLHH), 6))
-            self.LHHE.append(round((cLHHtoLLL / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoHHH / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoHHL / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoHLH / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoHLL / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoLHH / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoLHL / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoLLH / cLHH), 6))
+            self.probE['LHH'].append(round((cLHHtoLLL / cLHH), 6))
 
-            self.LHLE.append(round((cLHLtoHHH / cLHL), 6))
-            self.LHLE.append(round((cLHLtoHHL / cLHL), 6))
-            self.LHLE.append(round((cLHLtoHLH / cLHL), 6))
-            self.LHLE.append(round((cLHLtoHLL / cLHL), 6))
-            self.LHLE.append(round((cLHLtoLHH / cLHL), 6))
-            self.LHLE.append(round((cLHLtoLHL / cLHL), 6))
-            self.LHLE.append(round((cLHLtoLLH / cLHL), 6))
-            self.LHLE.append(round((cLHLtoLLL / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoHHH / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoHHL / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoHLH / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoHLL / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoLHH / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoLHL / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoLLH / cLHL), 6))
+            self.probE['LHL'].append(round((cLHLtoLLL / cLHL), 6))
 
-            self.LLHE.append(round((cLLHtoHHH / cLLH), 6))
-            self.LLHE.append(round((cLLHtoHHL / cLLH), 6))
-            self.LLHE.append(round((cLLHtoHLH / cLLH), 6))
-            self.LLHE.append(round((cLLHtoHLL / cLLH), 6))
-            self.LLHE.append(round((cLLHtoLHH / cLLH), 6))
-            self.LLHE.append(round((cLLHtoLHL / cLLH), 6))
-            self.LLHE.append(round((cLLHtoLLH / cLLH), 6))
-            self.LLHE.append(round((cLLHtoLLL / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoHHH / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoHHL / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoHLH / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoHLL / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoLHH / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoLHL / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoLLH / cLLH), 6))
+            self.probE['LLH'].append(round((cLLHtoLLL / cLLH), 6))
 
-            self.LLLE.append(round(cLLLtoHHH, 6))
-            self.LLLE.append(round(cLLLtoHHL, 6))
-            self.LLLE.append(round(cLLLtoHLH, 6))
-            self.LLLE.append(round(cLLLtoHLL, 6))
-            self.LLLE.append(round(cLLLtoLHH, 6))
-            self.LLLE.append(round(cLLLtoLHL, 6))
-            self.LLLE.append(round(cLLLtoLLH, 6))
-            self.LLLE.append(round(cLLLtoLLL, 6))
+            self.probE['LLL'].append(round(cLLLtoHHH, 6))
+            self.probE['LLL'].append(round(cLLLtoHHL, 6))
+            self.probE['LLL'].append(round(cLLLtoHLH, 6))
+            self.probE['LLL'].append(round(cLLLtoHLL, 6))
+            self.probE['LLL'].append(round(cLLLtoLHH, 6))
+            self.probE['LLL'].append(round(cLLLtoLHL, 6))
+            self.probE['LLL'].append(round(cLLLtoLLH, 6))
+            self.probE['LLL'].append(round(cLLLtoLLL, 6))
         elif action == 'N':
             self.HHHN.append(round((cHHHtoHHH / cHHH), 6))
             self.HHHN.append(round((cHHHtoHHL / cHHH), 6))
@@ -432,77 +432,77 @@ class GetActionProbabilities:
             print("\nAction E probabilities:")
             self.get_action('E')
             print("-----HHH-----")
-            print("TO HHH:", self.HHHE[0])
-            print("TO HHL:", self.HHHE[1])
-            print("TO HLH:", self.HHHE[2])
-            print("TO HLL:", self.HHHE[3])
-            print("TO LHH:", self.HHHE[4])
-            print("TO LHL:", self.HHHE[5])
-            print("TO LLH:", self.HHHE[6])
-            print("TO LLL:", self.HHHE[7])
+            print("TO HHH:", self.probE['HHH'][0])
+            print("TO HHL:", self.probE['HHH'][1])
+            print("TO HLH:", self.probE['HHH'][2])
+            print("TO HLL:", self.probE['HHH'][3])
+            print("TO LHH:", self.probE['HHH'][4])
+            print("TO LHL:", self.probE['HHH'][5])
+            print("TO LLH:", self.probE['HHH'][6])
+            print("TO LLL:", self.probE['HHH'][7])
             print("-----HHL-----")
-            print("TO HHH:", self.HHLE[0])
-            print("TO HHL:", self.HHLE[1])
-            print("TO HLH:", self.HHLE[2])
-            print("TO HLL:", self.HHLE[3])
-            print("TO LHH:", self.HHLE[4])
-            print("TO LHL:", self.HHLE[5])
-            print("TO LLH:", self.HHLE[6])
-            print("TO LLL:", self.HHLE[7])
+            print("TO HHH:", self.probE['HHL'][0])
+            print("TO HHL:", self.probE['HHL'][1])
+            print("TO HLH:", self.probE['HHL'][2])
+            print("TO HLL:", self.probE['HHL'][3])
+            print("TO LHH:", self.probE['HHL'][4])
+            print("TO LHL:", self.probE['HHL'][5])
+            print("TO LLH:", self.probE['HHL'][6])
+            print("TO LLL:", self.probE['HHL'][7])
             print("-----HLH-----")
-            print("TO HHH:", self.HLHE[0])
-            print("TO HHL:", self.HLHE[1])
-            print("TO HLH:", self.HLHE[2])
-            print("TO HLL:", self.HLHE[3])
-            print("TO LHH:", self.HLHE[4])
-            print("TO LHL:", self.HLHE[5])
-            print("TO LLH:", self.HLHE[6])
-            print("TO LLL:", self.HLHE[7])
+            print("TO HHH:", self.probE['HLH'][0])
+            print("TO HHL:", self.probE['HLH'][1])
+            print("TO HLH:", self.probE['HLH'][2])
+            print("TO HLL:", self.probE['HLH'][3])
+            print("TO LHH:", self.probE['HLH'][4])
+            print("TO LHL:", self.probE['HLH'][5])
+            print("TO LLH:", self.probE['HLH'][6])
+            print("TO LLL:", self.probE['HLH'][7])
             print("-----HLL-----")
-            print("TO HHH:", self.HLLE[0])
-            print("TO HHL:", self.HLLE[1])
-            print("TO HLH:", self.HLLE[2])
-            print("TO HLL:", self.HLLE[3])
-            print("TO LHH:", self.HLLE[4])
-            print("TO LHL:", self.HLLE[5])
-            print("TO LLH:", self.HLLE[6])
-            print("TO LLL:", self.HLLE[7])
+            print("TO HHH:", self.probE['HLL'][0])
+            print("TO HHL:", self.probE['HLL'][1])
+            print("TO HLH:", self.probE['HLL'][2])
+            print("TO HLL:", self.probE['HLL'][3])
+            print("TO LHH:", self.probE['HLL'][4])
+            print("TO LHL:", self.probE['HLL'][5])
+            print("TO LLH:", self.probE['HLL'][6])
+            print("TO LLL:", self.probE['HLL'][7])
             print("-----LHH-----")
-            print("TO HHH:", self.LHHE[0])
-            print("TO HHL:", self.LHHE[1])
-            print("TO HLH:", self.LHHE[2])
-            print("TO HLL:", self.LHHE[3])
-            print("TO LHH:", self.LHHE[4])
-            print("TO LHL:", self.LHHE[5])
-            print("TO LLH:", self.LHHE[6])
-            print("TO LLL:", self.LHHE[7])
+            print("TO HHH:", self.probE['LHH'][0])
+            print("TO HHL:", self.probE['LHH'][1])
+            print("TO HLH:", self.probE['LHH'][2])
+            print("TO HLL:", self.probE['LHH'][3])
+            print("TO LHH:", self.probE['LHH'][4])
+            print("TO LHL:", self.probE['LHH'][5])
+            print("TO LLH:", self.probE['LHH'][6])
+            print("TO LLL:", self.probE['LHH'][7])
             print("-----LHL-----")
-            print("TO HHH:", self.LHLE[0])
-            print("TO HHL:", self.LHLE[1])
-            print("TO HLH:", self.LHLE[2])
-            print("TO HLL:", self.LHLE[3])
-            print("TO LHH:", self.LHLE[4])
-            print("TO LHL:", self.LHLE[5])
-            print("TO LLH:", self.LHLE[6])
-            print("TO LLL:", self.LHLE[7])
+            print("TO HHH:", self.probE['LHL'][0])
+            print("TO HHL:", self.probE['LHL'][1])
+            print("TO HLH:", self.probE['LHL'][2])
+            print("TO HLL:", self.probE['LHL'][3])
+            print("TO LHH:", self.probE['LHL'][4])
+            print("TO LHL:", self.probE['LHL'][5])
+            print("TO LLH:", self.probE['LHL'][6])
+            print("TO LLL:", self.probE['LHL'][7])
             print("-----LLH-----")
-            print("TO HHH:", self.LLHE[0])
-            print("TO HHL:", self.LLHE[1])
-            print("TO HLH:", self.LLHE[2])
-            print("TO HLL:", self.LLHE[3])
-            print("TO LHH:", self.LLHE[4])
-            print("TO LHL:", self.LLHE[5])
-            print("TO LLH:", self.LLHE[6])
-            print("TO LLL:", self.LLHE[7])
+            print("TO HHH:", self.probE['LLH'][0])
+            print("TO HHL:", self.probE['LLH'][1])
+            print("TO HLH:", self.probE['LLH'][2])
+            print("TO HLL:", self.probE['LLH'][3])
+            print("TO LHH:", self.probE['LLH'][4])
+            print("TO LHL:", self.probE['LLH'][5])
+            print("TO LLH:", self.probE['LLH'][6])
+            print("TO LLL:", self.probE['LLH'][7])
             print("-----LLL-----")
-            print("TO HHH:", self.LLLE[0])
-            print("TO HHL:", self.LLLE[1])
-            print("TO HLH:", self.LLLE[2])
-            print("TO HLL:", self.LLLE[3])
-            print("TO LHH:", self.LLLE[4])
-            print("TO LHL:", self.LLLE[5])
-            print("TO LLH:", self.LLLE[6])
-            print("TO LLL:", self.LLLE[7])
+            print("TO HHH:", self.probE['LLL'][0])
+            print("TO HHL:", self.probE['LLL'][1])
+            print("TO HLH:", self.probE['LLL'][2])
+            print("TO HLL:", self.probE['LLL'][3])
+            print("TO LHH:", self.probE['LLL'][4])
+            print("TO LHL:", self.probE['LLL'][5])
+            print("TO LLH:", self.probE['LLL'][6])
+            print("TO LLL:", self.probE['LLL'][7])
 
         elif action == 'N':
             print("\nAction N probabilities:")
@@ -707,21 +707,21 @@ class GetActionProbabilities:
     def bellman_costE(self, iteration, prev_costs, state):
         self.get_action('E')
         if state == 'HHH':
-            state_probs = self.HHHE
+            state_probs = self.probE['HHH']
         elif state == 'HHL':
-            state_probs = self.HHLE
+            state_probs = self.probE['HHL']
         elif state == 'HLH':
-            state_probs = self.HLHE
+            state_probs = self.probE['HLH']
         elif state == 'HLL':
-            state_probs = self.HLLE
+            state_probs = self.probE['HLL']
         elif state == 'LHH':
-            state_probs = self.LHHE
+            state_probs = self.probE['LHH']
         elif state == 'LHL':
-            state_probs = self.LHLE
+            state_probs = self.probE['LHL']
         elif state == 'LLH':
-            state_probs = self.LLHE
+            state_probs = self.probE['LLH']
         else:
-            state_probs = self.LLLE
+            state_probs = self.probE['LLL']
         costE = (self.costE +
                  state_probs[0] * prev_costs[0][iteration - 1] + state_probs[1] * prev_costs[1][iteration - 1] +
                  state_probs[2] * prev_costs[2][iteration - 1] + state_probs[3] * prev_costs[3][iteration - 1] +
@@ -897,21 +897,21 @@ class GetActionProbabilities:
 
     def optimalE(self, final_state_vals, state):
         if state == 'HHH':
-            state_probs = self.HHHE
+            state_probs = self.probE['HHH']
         elif state == 'HHL':
-            state_probs = self.HHLE
+            state_probs = self.probE['HHL']
         elif state == 'HLH':
-            state_probs = self.HLHE
+            state_probs = self.probE['HLH']
         elif state == 'HLL':
-            state_probs = self.HLLE
+            state_probs = self.probE['HLL']
         elif state == 'LHH':
-            state_probs = self.LHHE
+            state_probs = self.probE['LHH']
         elif state == 'LHL':
-            state_probs = self.LHLE
+            state_probs = self.probE['LHL']
         elif state == 'LLH':
-            state_probs = self.LLHE
+            state_probs = self.probE['LLH']
         else:
-            state_probs = self.LLLE
+            state_probs = self.probE['LLL']
         costE = (self.costE +
                  state_probs[0] * final_state_vals[0] + state_probs[1] * final_state_vals[1] +
                  state_probs[2] * final_state_vals[2] + state_probs[3] * final_state_vals[3] +
@@ -945,7 +945,9 @@ class GetActionProbabilities:
 
 
 my_class = GetActionProbabilities()
-my_class.get_states_value()
+my_class.print_probabilities('E')
+print(my_class.probE)
+"""my_class.get_states_value()
 my_class.optimal_policy(my_class.final_state_values, 'HHH')
 my_class.optimal_policy(my_class.final_state_values, 'HHL')
 my_class.optimal_policy(my_class.final_state_values, 'HLH')
@@ -955,4 +957,4 @@ my_class.optimal_policy(my_class.final_state_values, 'LHL')
 my_class.optimal_policy(my_class.final_state_values, 'LLH')
 my_class.optimal_policy(my_class.final_state_values, 'LLL')
 print(my_class.optimal_policy_dict)
-# {'HHH': 'E', 'HHL': 'E', 'HLH': 'W', 'HLL': 'N', 'LHH': 'E', 'LHL': 'E', 'LLH': 'W', 'LLL': 'N'}
+# {'HHH': 'E', 'HHL': 'E', 'HLH': 'W', 'HLL': 'N', 'LHH': 'E', 'LHL': 'E', 'LLH': 'W', 'LLL': 'N'}"""
