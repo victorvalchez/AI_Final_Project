@@ -3,7 +3,7 @@ import csv
 
 class GetActionProbabilities:
     # Cuanto mas alto el coste mas tarda en normalizarse
-    cost_action = {'N': 1, 'E': 1, 'W': 1}
+    cost_action = {'N': 20, 'E': 20, 'W': 20} # cost is 20 seconds as it says it's the time it takes to change
     probs = {'N': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'E': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'W': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}}
@@ -372,11 +372,10 @@ class GetActionProbabilities:
     def bellman_cost(self, iteration, prev_costs, state, action):
         self.get_action(action)
         state_probs = self.probs[action][state]
-        cost = (self.cost_action[action] +
-                state_probs[0] * prev_costs['HHH'][iteration - 1] + state_probs[1] * prev_costs['HHL'][iteration - 1] +
-                state_probs[2] * prev_costs['HLH'][iteration - 1] + state_probs[3] * prev_costs['HLL'][iteration - 1] +
-                state_probs[4] * prev_costs['LHH'][iteration - 1] + state_probs[5] * prev_costs['LHL'][iteration - 1] +
-                state_probs[6] * prev_costs['LLH'][iteration - 1] + state_probs[7] * prev_costs['LLL'][iteration - 1])
+        states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
+        cost = self.cost_action[action]
+        for i in range(8):
+            cost += state_probs[i] * prev_costs[states[i]][iteration-1]
         return cost
 
     def get_states_value(self):
@@ -384,43 +383,41 @@ class GetActionProbabilities:
         flag_all = False
         final_pos = 0
         states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
-
-        for a in range(1, 600):
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'HHH', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'HHL', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'HLH', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'HLL', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'LHH', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'LHL', a)
-            self.previous_costs = self.bellman_equations(self.previous_costs, 'LLH', a)
-            self.previous_costs['LLL'].append(0)
-            print("\nThis is the", a, "iteration")
+        ite = 1
+        while not flag_all:
+            for i in range(8):
+                if i == 7:
+                    self.previous_costs['LLL'].append(0)
+                else:
+                    self.previous_costs = self.bellman_equations(self.previous_costs, states[i], ite)
+            print("\nThis is the", ite, "iteration")
             for i in range(8):
                 print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
-            if self.previous_costs['HHH'][a] == self.previous_costs['HHH'][a - 1]:
+            if self.previous_costs['HHH'][ite] == self.previous_costs['HHH'][ite - 1]:
                 flag1 = True
-            if self.previous_costs['HHL'][a] == self.previous_costs['HHL'][a - 1]:
+            if self.previous_costs['HHL'][ite] == self.previous_costs['HHL'][ite - 1]:
                 flag2 = True
-            if self.previous_costs['HLH'][a] == self.previous_costs['HLH'][a - 1]:
+            if self.previous_costs['HLH'][ite] == self.previous_costs['HLH'][ite - 1]:
                 flag3 = True
-            if self.previous_costs['HLL'][a] == self.previous_costs['HLL'][a - 1]:
+            if self.previous_costs['HLL'][ite] == self.previous_costs['HLL'][ite - 1]:
                 flag4 = True
-            if self.previous_costs['LHH'][a] == self.previous_costs['LHH'][a - 1]:
+            if self.previous_costs['LHH'][ite] == self.previous_costs['LHH'][ite - 1]:
                 flag5 = True
-            if self.previous_costs['LHL'][a] == self.previous_costs['LHL'][a - 1]:
+            if self.previous_costs['LHL'][ite] == self.previous_costs['LHL'][ite - 1]:
                 flag6 = True
-            if self.previous_costs['LLH'][a] == self.previous_costs['LLH'][a - 1]:
+            if self.previous_costs['LLH'][ite] == self.previous_costs['LLH'][ite - 1]:
                 flag7 = True
-            if self.previous_costs['LLL'][a] == self.previous_costs['LLL'][a - 1]:
+            if self.previous_costs['LLL'][ite] == self.previous_costs['LLL'][ite - 1]:
                 flag8 = True
 
             if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
                 flag_all = True
 
             if flag_all:
-                final_pos = a
+                final_pos = ite
                 break
+            ite += 1
 
         print("Number of iterations:", final_pos)
         for i in range(8):
