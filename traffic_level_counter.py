@@ -369,20 +369,14 @@ class GetActionProbabilities:
 
         return previous_costs_dict
 
-    def bellman_cost(self, iteration, previous_costs, state, action):
-        #self.get_action(action)
-        state_probs = self.probs[action]
-        eqcost = 0
-        item = 0
-        for i in state_probs:
-            if state in state_probs[i]:
-                eqcost = eqcost + float(state_probs[action][state][i]) * previous_costs[item][iteration - 1]
-                item += 1
-        cost = self.cost_action[action] + eqcost
-                #+ state_probs[1] * prev_costs['HHL'][iteration - 1] +
-                #state_probs[2] * prev_costs['HLH'][iteration - 1] + state_probs[3] * prev_costs['HLL'][iteration - 1] +
-                #state_probs[4] * prev_costs['LHH'][iteration - 1] + state_probs[5] * prev_costs['LHL'][iteration - 1] +
-                #state_probs[6] * prev_costs['LLH'][iteration - 1] + state_probs[7] * prev_costs['LLL'][iteration - 1])"""
+    def bellman_cost(self, iteration, prev_costs, state, action):
+        self.get_action(action)
+        state_probs = self.probs[action][state]
+        cost = self.cost_action[action] + \
+               state_probs[0] * prev_costs['HHH'][iteration - 1] + state_probs[1] * prev_costs['HHL'][iteration - 1] + \
+                state_probs[2] * prev_costs['HLH'][iteration - 1] + state_probs[3] * prev_costs['HLL'][iteration - 1] + \
+                state_probs[4] * prev_costs['LHH'][iteration - 1] + state_probs[5] * prev_costs['LHL'][iteration - 1] + \
+                state_probs[6] * prev_costs['LLH'][iteration - 1] + state_probs[7] * prev_costs['LLL'][iteration - 1]
         return cost
 
     def get_states_value(self):
@@ -400,9 +394,9 @@ class GetActionProbabilities:
             self.previous_costs = self.bellman_equations(self.previous_costs, 'LHL', a)
             self.previous_costs = self.bellman_equations(self.previous_costs, 'LLH', a)
             self.previous_costs['LLL'].append(0)
-            #print("\nThis is the", a, "iteration")
-            #for i in range(8):
-                #print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
+            print("\nThis is the", a, "iteration")
+            for i in range(8):
+                print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
             if self.previous_costs['HHH'][a] == self.previous_costs['HHH'][a - 1]:
                 flag1 = True
@@ -452,18 +446,12 @@ class GetActionProbabilities:
         return self.optimal_policy_dict
 
     def optimal_cost(self, final_state_vals, state, action):
-        state_probs = self.probs[action]
-        opcost = 0
-        item = 0
-        for i in state_probs:
-            if state in state_probs[i]:
-                opcost = opcost + state_probs[action][state][i] * final_state_vals[item]
-                item += 1
-        cost = self.cost_action[action] + opcost
-                #+ state_probs[1] * final_state_vals['HHL'] +
-                #state_probs[2] * final_state_vals['HLH'] + state_probs[3] * final_state_vals['HLL'] +
-                #state_probs[4] * final_state_vals['LHH'] + state_probs[5] * final_state_vals['LHL'] +
-                #state_probs[6] * final_state_vals['LLH'] + state_probs[7] * final_state_vals['LLL'])
+        state_probs = self.probs[action][state]
+        cost = self.cost_action[action] \
+               + state_probs[0] * final_state_vals['HHH'] + state_probs[1] * final_state_vals['HHL'] + \
+                state_probs[2] * final_state_vals['HLH'] + state_probs[3] * final_state_vals['HLL'] + \
+                state_probs[4] * final_state_vals['LHH'] + state_probs[5] * final_state_vals['LHL'] + \
+                state_probs[6] * final_state_vals['LLH'] + state_probs[7] * final_state_vals['LLL']
         return cost
 
 
