@@ -1,18 +1,15 @@
 import csv
 
-probs = {'N': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
-             'E': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
-             'W': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}}
 
-class GetActionProbabilities:
-    # Cuanto mas alto el coste mas tarda en normalizarse
-    cost_action = {'N': 20, 'E': 20, 'W': 20} # cost is 20 seconds as it says it's the time it takes to change
+class GetOptimalPolicy:
+    """This class performs everything related to the calculation of the optimal policy such as calculating
+    the probabilities, and getting the expected cost of each state"""
+
+    cost_action = {'N': 20, 'E': 20, 'W': 20}  # cost is 20 seconds as it says it's the time it takes to change
     probs = {'N': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'E': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'W': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}}
     states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
-    # probN = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
-    # probE = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
     previous_costs = {'HHH': [0], 'HHL': [0], 'HLH': [0], 'HLL': [0], 'LHH': [0], 'LHL': [0], 'LLH': [0], 'LLL': [0]}
     final_state_values = {'HHH': 0, 'HHL': 0, 'HLH': 0, 'HLL': 0, 'LHH': 0, 'LHL': 0, 'LLH': 0, 'LLL': 0}
     optimal_policy_dict = {'HHH': '', 'HHL': '', 'HLH': '', 'HLL': '', 'LHH': '', 'LHL': '', 'LLH': '', 'LLL': ''}
@@ -28,7 +25,7 @@ class GetActionProbabilities:
         return new_list
 
     def get_action(self, action: str):  # 2935
-        new_list = self.read_csv("data/Data_no_header.csv")
+        new_list = self.read_csv("../data/Data_no_header.csv")
         # From state HHH
         cHHHtoHHH, cHHHtoHHL, cHHHtoHLH, cHHHtoHLL, cHHHtoLHH, cHHHtoLHL, cHHHtoLLH, cHHHtoLLL \
             = 0, 0, 0, 0, 0, 0, 0, 0
@@ -293,7 +290,6 @@ class GetActionProbabilities:
             self.get_action(actions[i])
 
     def print_probabilities(self, action: str):
-        #self.get_action(action)
         print("Probabilities for action", action)
         print("-----HHH-----")
         print("TO HHH:", self.probs[action]['HHH'][0])
@@ -379,11 +375,10 @@ class GetActionProbabilities:
         return previous_costs_dict
 
     def bellman_cost(self, iteration, prev_costs, state, action):
-        #self.get_action(action)
         state_probs = self.probs[action][state]
         cost = self.cost_action[action]
         for i in range(8):
-            cost += state_probs[i] * prev_costs[self.states[i]][iteration-1]
+            cost += state_probs[i] * prev_costs[self.states[i]][iteration - 1]
         return cost
 
     def get_states_value(self):
@@ -397,9 +392,9 @@ class GetActionProbabilities:
                     self.previous_costs['LLL'].append(0)
                 else:
                     self.previous_costs = self.bellman_equations(self.previous_costs, self.states[i], ite)
-            #print("\nThis is the", ite, "iteration")
+            # print("\nThis is the", ite, "iteration")
             # for i in range(8):
-                # print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
+            # print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
             if round(self.previous_costs['HHH'][ite], 6) == round(self.previous_costs['HHH'][ite - 1], 6):
                 flag1 = True
@@ -429,7 +424,7 @@ class GetActionProbabilities:
         print("Number of iterations:", final_pos)
         for i in range(8):
             self.final_state_values[self.states[i]] = round(self.previous_costs[self.states[i]][final_pos], 6)
-            print("V(" + str(self.states[i]) + "):", round(self.previous_costs[self.states[i]][final_pos], 6))
+            # print("V(" + str(self.states[i]) + "):", round(self.previous_costs[self.states[i]][final_pos], 6))
 
     def optimal_policy(self, final_state_vals, state):
         costN = self.optimal_cost(final_state_vals, state, 'N')
@@ -457,17 +452,11 @@ class GetActionProbabilities:
                 state_probs[6] * final_state_vals['LLH'] + state_probs[7] * final_state_vals['LLL'])
         return cost
 
+    def get_optimal_policy(self):
+        self.get_all_actions_probabilities()
+        self.get_states_value()
+        for i in range(8):
+            self.optimal_policy(self.final_state_values, self.states[i])
+        return self.optimal_policy_dict
 
-my_class = GetActionProbabilities()
-my_class.get_all_actions_probabilities()
-my_class.get_states_value()
-my_class.optimal_policy(my_class.final_state_values, 'HHH')
-my_class.optimal_policy(my_class.final_state_values, 'HHL')
-my_class.optimal_policy(my_class.final_state_values, 'HLH')
-my_class.optimal_policy(my_class.final_state_values, 'HLL')
-my_class.optimal_policy(my_class.final_state_values, 'LHH')
-my_class.optimal_policy(my_class.final_state_values, 'LHL')
-my_class.optimal_policy(my_class.final_state_values, 'LLH')
-my_class.optimal_policy(my_class.final_state_values, 'LLL')
-print(my_class.optimal_policy_dict)
 # {'HHH': 'E', 'HHL': 'E', 'HLH': 'W', 'HLL': 'N', 'LHH': 'E', 'LHL': 'E', 'LLH': 'W', 'LLL': 'N'}"""
