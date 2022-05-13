@@ -7,8 +7,9 @@ class GetActionProbabilities:
     probs = {'N': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'E': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
              'W': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}}
-    probN = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
-    probE = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
+    states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
+    # probN = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
+    # probE = {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}
     previous_costs = {'HHH': [0], 'HHL': [0], 'HLH': [0], 'HLL': [0], 'LHH': [0], 'LHL': [0], 'LLH': [0], 'LLL': [0]}
     final_state_values = {'HHH': 0, 'HHL': 0, 'HLH': 0, 'HLL': 0, 'LHH': 0, 'LHL': 0, 'LLH': 0, 'LLL': 0}
     optimal_policy_dict = {'HHH': '', 'HHL': '', 'HLH': '', 'HLL': '', 'LHH': '', 'LHL': '', 'LLH': '', 'LLL': ''}
@@ -364,7 +365,7 @@ class GetActionProbabilities:
         costN = self.bellman_cost(iteration, previous_costs_dict, state, 'N')
         costE = self.bellman_cost(iteration, previous_costs_dict, state, 'E')
         costW = self.bellman_cost(iteration, previous_costs_dict, state, 'W')
-        min_cost = round(min(costN, costW, costE), 6)
+        min_cost = min(costN, costW, costE)
         previous_costs_dict[state].append(min_cost)
 
         return previous_costs_dict
@@ -372,43 +373,41 @@ class GetActionProbabilities:
     def bellman_cost(self, iteration, prev_costs, state, action):
         self.get_action(action)
         state_probs = self.probs[action][state]
-        states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
         cost = self.cost_action[action]
         for i in range(8):
-            cost += state_probs[i] * prev_costs[states[i]][iteration-1]
+            cost += state_probs[i] * prev_costs[self.states[i]][iteration-1]
         return cost
 
     def get_states_value(self):
         flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8 = False, False, False, False, False, False, False, False
         flag_all = False
         final_pos = 0
-        states = ['HHH', 'HHL', 'HLH', 'HLL', 'LHH', 'LHL', 'LLH', 'LLL']
         ite = 1
         while not flag_all:
             for i in range(8):
                 if i == 7:
                     self.previous_costs['LLL'].append(0)
                 else:
-                    self.previous_costs = self.bellman_equations(self.previous_costs, states[i], ite)
+                    self.previous_costs = self.bellman_equations(self.previous_costs, self.states[i], ite)
             print("\nThis is the", ite, "iteration")
-            for i in range(8):
-                print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
+            # for i in range(8):
+                # print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
-            if self.previous_costs['HHH'][ite] == self.previous_costs['HHH'][ite - 1]:
+            if round(self.previous_costs['HHH'][ite], 6) == round(self.previous_costs['HHH'][ite - 1], 6):
                 flag1 = True
-            if self.previous_costs['HHL'][ite] == self.previous_costs['HHL'][ite - 1]:
+            if round(self.previous_costs['HHL'][ite], 6) == round(self.previous_costs['HHL'][ite - 1], 6):
                 flag2 = True
-            if self.previous_costs['HLH'][ite] == self.previous_costs['HLH'][ite - 1]:
+            if round(self.previous_costs['HLH'][ite], 6) == round(self.previous_costs['HLH'][ite - 1], 6):
                 flag3 = True
-            if self.previous_costs['HLL'][ite] == self.previous_costs['HLL'][ite - 1]:
+            if round(self.previous_costs['HLL'][ite], 6) == round(self.previous_costs['HLL'][ite - 1], 6):
                 flag4 = True
-            if self.previous_costs['LHH'][ite] == self.previous_costs['LHH'][ite - 1]:
+            if round(self.previous_costs['LHH'][ite], 6) == round(self.previous_costs['LHH'][ite - 1], 6):
                 flag5 = True
-            if self.previous_costs['LHL'][ite] == self.previous_costs['LHL'][ite - 1]:
+            if round(self.previous_costs['LHL'][ite], 6) == round(self.previous_costs['LHL'][ite - 1], 6):
                 flag6 = True
-            if self.previous_costs['LLH'][ite] == self.previous_costs['LLH'][ite - 1]:
+            if round(self.previous_costs['LLH'][ite], 6) == round(self.previous_costs['LLH'][ite - 1], 6):
                 flag7 = True
-            if self.previous_costs['LLL'][ite] == self.previous_costs['LLL'][ite - 1]:
+            if round(self.previous_costs['LLL'][ite], 6) == round(self.previous_costs['LLL'][ite - 1], 6):
                 flag8 = True
 
             if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
@@ -421,16 +420,15 @@ class GetActionProbabilities:
 
         print("Number of iterations:", final_pos)
         for i in range(8):
-            self.final_state_values[states[i]] = self.previous_costs[states[i]][final_pos]
-            print("V(" + str(states[i]) + "):", self.previous_costs[states[i]][final_pos])
+            self.final_state_values[self.states[i]] = round(self.previous_costs[self.states[i]][final_pos], 6)
+            print("V(" + str(self.states[i]) + "):", round(self.previous_costs[self.states[i]][final_pos], 6))
 
     def optimal_policy(self, final_state_vals, state):
         costN = self.optimal_cost(final_state_vals, state, 'N')
         costE = self.optimal_cost(final_state_vals, state, 'E')
         costW = self.optimal_cost(final_state_vals, state, 'W')
-        print(costN, costE, costW)
         min_cost = min(costN, costW, costE)
-        print(min_cost)
+        print("Minimum cost ", state, ":", min_cost)
         if min_cost == costN:
             optimal_action = 'N'
         elif min_cost == costE:
