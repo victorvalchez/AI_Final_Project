@@ -1,5 +1,8 @@
 import csv
 
+probs = {'N': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
+             'E': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []},
+             'W': {'HHH': [], 'HHL': [], 'HLH': [], 'HLL': [], 'LHH': [], 'LHL': [], 'LLH': [], 'LLL': []}}
 
 class GetActionProbabilities:
     # Cuanto mas alto el coste mas tarda en normalizarse
@@ -212,9 +215,9 @@ class GetActionProbabilities:
                     if row[4] == 'Low' and row[5] == 'Low' and row[6] == 'Low':
                         cLLLtoLLL += 1
                     cLLL += 1
-        self.probs[action]['HHH'].append(round((cHHHtoHHH / cHHH), 6))
-        self.probs[action]['HHH'].append(round((cHHHtoHHL / cHHH), 6))
-        self.probs[action]['HHH'].append(round((cHHHtoHLH / cHHH), 6))
+        probs[action]['HHH'].append(round((cHHHtoHHH / cHHH), 6))
+        probs[action]['HHH'].append(round((cHHHtoHHL / cHHH), 6))
+        probs[action]['HHH'].append(round((cHHHtoHLH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoHLL / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoLHH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoLHL / cHHH), 6))
@@ -283,6 +286,11 @@ class GetActionProbabilities:
         self.probs[action]['LLL'].append(round(cLLLtoLHL, 6))
         self.probs[action]['LLL'].append(round(cLLLtoLLH, 6))
         self.probs[action]['LLL'].append(round(cLLLtoLLL, 6))
+
+    def get_all_actions_probabilities(self):
+        actions = ['N', 'E', 'W']
+        for i in range(3):
+            self.get_action(actions[i])
 
     def print_probabilities(self, action: str):
         self.get_action(action)
