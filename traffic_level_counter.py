@@ -215,9 +215,9 @@ class GetActionProbabilities:
                     if row[4] == 'Low' and row[5] == 'Low' and row[6] == 'Low':
                         cLLLtoLLL += 1
                     cLLL += 1
-        probs[action]['HHH'].append(round((cHHHtoHHH / cHHH), 6))
-        probs[action]['HHH'].append(round((cHHHtoHHL / cHHH), 6))
-        probs[action]['HHH'].append(round((cHHHtoHLH / cHHH), 6))
+        self.probs[action]['HHH'].append(round((cHHHtoHHH / cHHH), 6))
+        self.probs[action]['HHH'].append(round((cHHHtoHHL / cHHH), 6))
+        self.probs[action]['HHH'].append(round((cHHHtoHLH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoHLL / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoLHH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoLHL / cHHH), 6))
@@ -293,7 +293,7 @@ class GetActionProbabilities:
             self.get_action(actions[i])
 
     def print_probabilities(self, action: str):
-        self.get_action(action)
+        #self.get_action(action)
         print("Probabilities for action", action)
         print("-----HHH-----")
         print("TO HHH:", self.probs[action]['HHH'][0])
@@ -379,7 +379,7 @@ class GetActionProbabilities:
         return previous_costs_dict
 
     def bellman_cost(self, iteration, prev_costs, state, action):
-        self.get_action(action)
+        #self.get_action(action)
         state_probs = self.probs[action][state]
         cost = self.cost_action[action]
         for i in range(8):
@@ -397,7 +397,7 @@ class GetActionProbabilities:
                     self.previous_costs['LLL'].append(0)
                 else:
                     self.previous_costs = self.bellman_equations(self.previous_costs, self.states[i], ite)
-            print("\nThis is the", ite, "iteration")
+            #print("\nThis is the", ite, "iteration")
             # for i in range(8):
                 # print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
@@ -459,7 +459,7 @@ class GetActionProbabilities:
 
 
 my_class = GetActionProbabilities()
-
+my_class.get_all_actions_probabilities()
 my_class.get_states_value()
 my_class.optimal_policy(my_class.final_state_values, 'HHH')
 my_class.optimal_policy(my_class.final_state_values, 'HHL')
