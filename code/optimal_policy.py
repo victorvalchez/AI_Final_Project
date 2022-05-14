@@ -16,6 +16,7 @@ class GetOptimalPolicy:
 
     @staticmethod
     def read_csv(file):
+        """This method reads the given Data file and stores each line in a list of lists"""
         new_list = []
         with open(file, 'r', newline='') as csvfile:
             reader = csv.reader(csvfile)
@@ -24,7 +25,8 @@ class GetOptimalPolicy:
                 # separado por ; para que cada vez que vea ; añada un nuevo elemento a la fila
         return new_list
 
-    def get_action(self, action: str):  # 2935
+    def get_action(self, action: str):
+        """This method calculates the probabilities for each state given an action"""
         new_list = self.read_csv("../data/Data_no_header.csv")
         # From state HHH
         cHHHtoHHH, cHHHtoHHL, cHHHtoHLH, cHHHtoHLL, cHHHtoLHH, cHHHtoLHL, cHHHtoLLH, cHHHtoLLL \
@@ -59,8 +61,10 @@ class GetOptimalPolicy:
             = 0, 0, 0, 0, 0, 0, 0, 0
         cLLL = 0
 
+        # For each row in the list, we get the probability of going from a state to all the other possible ones
         for row in new_list:
             if row[3] == action:
+                # HHH
                 if row[0] == 'High' and row[1] == 'High' and row[2] == 'High':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cHHHtoHHH += 1
@@ -80,6 +84,7 @@ class GetOptimalPolicy:
                         cHHHtoLLL += 1
                     cHHH += 1
 
+                # HHL
                 if row[0] == 'High' and row[1] == 'High' and row[2] == 'Low':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cHHLtoHHH += 1
@@ -99,6 +104,7 @@ class GetOptimalPolicy:
                         cHHLtoLLL += 1
                     cHHL += 1
 
+                # HLH
                 if row[0] == 'High' and row[1] == 'Low' and row[2] == 'High':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cHLHtoHHH += 1
@@ -118,6 +124,7 @@ class GetOptimalPolicy:
                         cHLHtoLLL += 1
                     cHLH += 1
 
+                # HLL
                 if row[0] == 'High' and row[1] == 'Low' and row[2] == 'Low':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cHLLtoHHH += 1
@@ -137,6 +144,7 @@ class GetOptimalPolicy:
                         cHLLtoLLL += 1
                     cHLL += 1
 
+                # LHH
                 if row[0] == 'Low' and row[1] == 'High' and row[2] == 'High':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cLHHtoHHH += 1
@@ -156,6 +164,7 @@ class GetOptimalPolicy:
                         cLHHtoLLL += 1
                     cLHH += 1
 
+                # LHL
                 if row[0] == 'Low' and row[1] == 'High' and row[2] == 'Low':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cLHLtoHHH += 1
@@ -175,6 +184,7 @@ class GetOptimalPolicy:
                         cLHLtoLLL += 1
                     cLHL += 1
 
+                # LLH
                 if row[0] == 'Low' and row[1] == 'Low' and row[2] == 'High':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cLLHtoHHH += 1
@@ -194,6 +204,7 @@ class GetOptimalPolicy:
                         cLLHtoLLL += 1
                     cLLH += 1
 
+                # LLL
                 if row[0] == 'Low' and row[1] == 'Low' and row[2] == 'Low':
                     if row[4] == 'High' and row[5] == 'High' and row[6] == 'High':
                         cLLLtoHHH += 1
@@ -212,6 +223,8 @@ class GetOptimalPolicy:
                     if row[4] == 'Low' and row[5] == 'Low' and row[6] == 'Low':
                         cLLLtoLLL += 1
                     cLLL += 1
+
+        # Add the corresponding probabilities from state HHH to all the states to the dictionary
         self.probs[action]['HHH'].append(round((cHHHtoHHH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoHHL / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoHLH / cHHH), 6))
@@ -221,6 +234,7 @@ class GetOptimalPolicy:
         self.probs[action]['HHH'].append(round((cHHHtoLLH / cHHH), 6))
         self.probs[action]['HHH'].append(round((cHHHtoLLL / cHHH), 6))
 
+        # Add the corresponding probabilities from state HHL to all the states to the dictionary
         self.probs[action]['HHL'].append(round((cHHLtoHHH / cHHL), 6))
         self.probs[action]['HHL'].append(round((cHHLtoHHL / cHHL), 6))
         self.probs[action]['HHL'].append(round((cHHLtoHLH / cHHL), 6))
@@ -230,6 +244,7 @@ class GetOptimalPolicy:
         self.probs[action]['HHL'].append(round((cHHLtoLLH / cHHL), 6))
         self.probs[action]['HHL'].append(round((cHHLtoLLL / cHHL), 6))
 
+        # Add the corresponding probabilities from state HLH to all the states to the dictionary
         self.probs[action]['HLH'].append(round((cHLHtoHHH / cHLH), 6))
         self.probs[action]['HLH'].append(round((cHLHtoHHL / cHLH), 6))
         self.probs[action]['HLH'].append(round((cHLHtoHLH / cHLH), 6))
@@ -239,6 +254,7 @@ class GetOptimalPolicy:
         self.probs[action]['HLH'].append(round((cHLHtoLLH / cHLH), 6))
         self.probs[action]['HLH'].append(round((cHLHtoLLL / cHLH), 6))
 
+        # Add the corresponding probabilities from state HLL to all the states to the dictionary
         self.probs[action]['HLL'].append(round((cHLLtoHHH / cHLL), 6))
         self.probs[action]['HLL'].append(round((cHLLtoHHL / cHLL), 6))
         self.probs[action]['HLL'].append(round((cHLLtoHLH / cHLL), 6))
@@ -248,6 +264,7 @@ class GetOptimalPolicy:
         self.probs[action]['HLL'].append(round((cHLLtoLLH / cHLL), 6))
         self.probs[action]['HLL'].append(round((cHLLtoLLL / cHLL), 6))
 
+        # Add the corresponding probabilities from state LHH to all the states to the dictionary
         self.probs[action]['LHH'].append(round((cLHHtoHHH / cLHH), 6))
         self.probs[action]['LHH'].append(round((cLHHtoHHL / cLHH), 6))
         self.probs[action]['LHH'].append(round((cLHHtoHLH / cLHH), 6))
@@ -257,6 +274,7 @@ class GetOptimalPolicy:
         self.probs[action]['LHH'].append(round((cLHHtoLLH / cLHH), 6))
         self.probs[action]['LHH'].append(round((cLHHtoLLL / cLHH), 6))
 
+        # Add the corresponding probabilities from state LHL to all the states to the dictionary
         self.probs[action]['LHL'].append(round((cLHLtoHHH / cLHL), 6))
         self.probs[action]['LHL'].append(round((cLHLtoHHL / cLHL), 6))
         self.probs[action]['LHL'].append(round((cLHLtoHLH / cLHL), 6))
@@ -266,6 +284,7 @@ class GetOptimalPolicy:
         self.probs[action]['LHL'].append(round((cLHLtoLLH / cLHL), 6))
         self.probs[action]['LHL'].append(round((cLHLtoLLL / cLHL), 6))
 
+        # Add the corresponding probabilities from state LLH to all the states to the dictionary
         self.probs[action]['LLH'].append(round((cLLHtoHHH / cLLH), 6))
         self.probs[action]['LLH'].append(round((cLLHtoHHL / cLLH), 6))
         self.probs[action]['LLH'].append(round((cLLHtoHLH / cLLH), 6))
@@ -275,6 +294,7 @@ class GetOptimalPolicy:
         self.probs[action]['LLH'].append(round((cLLHtoLLH / cLLH), 6))
         self.probs[action]['LLH'].append(round((cLLHtoLLL / cLLH), 6))
 
+        # Add the corresponding probabilities from state LLL to all the states to the dictionary
         self.probs[action]['LLL'].append(round(cLLLtoHHH, 6))
         self.probs[action]['LLL'].append(round(cLLLtoHHL, 6))
         self.probs[action]['LLL'].append(round(cLLLtoHLH, 6))
@@ -285,11 +305,13 @@ class GetOptimalPolicy:
         self.probs[action]['LLL'].append(round(cLLLtoLLL, 6))
 
     def get_all_actions_probabilities(self):
+        """This method populates the probabilities' dictionary"""
         actions = ['N', 'E', 'W']
         for i in range(3):
             self.get_action(actions[i])
 
     def print_probabilities(self, action: str):
+        """This method prints the probabilities of each state (Was made for personal checking)"""
         print("Probabilities for action", action)
         print("-----HHH-----")
         print("TO HHH:", self.probs[action]['HHH'][0])
@@ -366,6 +388,7 @@ class GetOptimalPolicy:
         print("\n")
 
     def bellman_equations(self, previous_costs_dict: dict, state, iteration: int) -> dict:
+        """This method executes the calculation of the expected cost for each state of one iteration"""
         costN = self.bellman_cost(iteration, previous_costs_dict, state, 'N')
         costE = self.bellman_cost(iteration, previous_costs_dict, state, 'E')
         costW = self.bellman_cost(iteration, previous_costs_dict, state, 'W')
@@ -375,6 +398,7 @@ class GetOptimalPolicy:
         return previous_costs_dict
 
     def bellman_cost(self, iteration, prev_costs, state, action):
+        """This method calculates the cost with each action, used in the previous method"""
         state_probs = self.probs[action][state]
         cost = self.cost_action[action]
         for i in range(8):
@@ -382,51 +406,53 @@ class GetOptimalPolicy:
         return cost
 
     def get_states_value(self):
+        """This method calculates the value iteration algorithm until it reaches the fixed point"""
         flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8 = False, False, False, False, False, False, False, False
         flag_all = False
         final_pos = 0
-        ite = 1
+        iteration = 1
+
         while not flag_all:
             for i in range(8):
                 if i == 7:
                     self.previous_costs['LLL'].append(0)
                 else:
-                    self.previous_costs = self.bellman_equations(self.previous_costs, self.states[i], ite)
-            # print("\nThis is the", ite, "iteration")
+                    self.previous_costs = self.bellman_equations(self.previous_costs, self.states[i], iteration)
+            # print("\nThis is the", iteration, "iteration")
             # for i in range(8):
             # print("V(" + str(states[i]) + "):", self.previous_costs[states[i]])
 
-            if round(self.previous_costs['HHH'][ite], 6) == round(self.previous_costs['HHH'][ite - 1], 6):
+            if round(self.previous_costs['HHH'][iteration], 6) == round(self.previous_costs['HHH'][iteration - 1], 6):
                 flag1 = True
-            if round(self.previous_costs['HHL'][ite], 6) == round(self.previous_costs['HHL'][ite - 1], 6):
+            if round(self.previous_costs['HHL'][iteration], 6) == round(self.previous_costs['HHL'][iteration - 1], 6):
                 flag2 = True
-            if round(self.previous_costs['HLH'][ite], 6) == round(self.previous_costs['HLH'][ite - 1], 6):
+            if round(self.previous_costs['HLH'][iteration], 6) == round(self.previous_costs['HLH'][iteration - 1], 6):
                 flag3 = True
-            if round(self.previous_costs['HLL'][ite], 6) == round(self.previous_costs['HLL'][ite - 1], 6):
+            if round(self.previous_costs['HLL'][iteration], 6) == round(self.previous_costs['HLL'][iteration - 1], 6):
                 flag4 = True
-            if round(self.previous_costs['LHH'][ite], 6) == round(self.previous_costs['LHH'][ite - 1], 6):
+            if round(self.previous_costs['LHH'][iteration], 6) == round(self.previous_costs['LHH'][iteration - 1], 6):
                 flag5 = True
-            if round(self.previous_costs['LHL'][ite], 6) == round(self.previous_costs['LHL'][ite - 1], 6):
+            if round(self.previous_costs['LHL'][iteration], 6) == round(self.previous_costs['LHL'][iteration - 1], 6):
                 flag6 = True
-            if round(self.previous_costs['LLH'][ite], 6) == round(self.previous_costs['LLH'][ite - 1], 6):
+            if round(self.previous_costs['LLH'][iteration], 6) == round(self.previous_costs['LLH'][iteration - 1], 6):
                 flag7 = True
-            if round(self.previous_costs['LLL'][ite], 6) == round(self.previous_costs['LLL'][ite - 1], 6):
+            if round(self.previous_costs['LLL'][iteration], 6) == round(self.previous_costs['LLL'][iteration - 1], 6):
                 flag8 = True
 
             if flag1 and flag2 and flag3 and flag4 and flag5 and flag6 and flag7 and flag8:
                 flag_all = True
+                final_pos = iteration
 
-            if flag_all:
-                final_pos = ite
-                break
-            ite += 1
+            iteration += 1
 
         print("Number of iterations:", final_pos)
+        # For each state set its fixed value
         for i in range(8):
             self.final_state_values[self.states[i]] = round(self.previous_costs[self.states[i]][final_pos], 6)
             # print("V(" + str(self.states[i]) + "):", round(self.previous_costs[self.states[i]][final_pos], 6))
 
     def optimal_policy(self, final_state_vals, state):
+        """This method calculates the optimal policy for a state"""
         costN = self.optimal_cost(final_state_vals, state, 'N')
         costE = self.optimal_cost(final_state_vals, state, 'E')
         costW = self.optimal_cost(final_state_vals, state, 'W')
@@ -444,19 +470,17 @@ class GetOptimalPolicy:
         return self.optimal_policy_dict
 
     def optimal_cost(self, final_state_vals, state, action):
+        """This method calculates the cost for each state and for a given action"""
         state_probs = self.probs[action][state]
-        cost = (self.cost_action[action] +
-                state_probs[0] * final_state_vals['HHH'] + state_probs[1] * final_state_vals['HHL'] +
-                state_probs[2] * final_state_vals['HLH'] + state_probs[3] * final_state_vals['HLL'] +
-                state_probs[4] * final_state_vals['LHH'] + state_probs[5] * final_state_vals['LHL'] +
-                state_probs[6] * final_state_vals['LLH'] + state_probs[7] * final_state_vals['LLL'])
+        cost = self.cost_action[action]
+        for i in range(8):
+            cost += state_probs[i] * final_state_vals[self.states[i]]
         return cost
 
     def get_optimal_policy(self):
+        """This method gets the optimal policy for each state"""
         self.get_all_actions_probabilities()
         self.get_states_value()
         for i in range(8):
             self.optimal_policy(self.final_state_values, self.states[i])
         return self.optimal_policy_dict
-
-# {'HHH': 'E', 'HHL': 'E', 'HLH': 'W', 'HLL': 'N', 'LHH': 'E', 'LHL': 'E', 'LLH': 'W', 'LLL': 'N'}"""
