@@ -21,8 +21,8 @@ class GetOptimalPolicy:
         with open(file, 'r', newline='') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
-                new_list.append(row[0].split(';'))  # Esto crea una lista de lo que hay en cada fila (le pongo que esta
-                # separado por ; para que cada vez que vea ; añada un nuevo elemento a la fila
+                new_list.append(row[0].split(';'))  # This appends to a list everything inside the row that is separated
+                # with ; so each time it sees a ; it adds the following element
         return new_list
 
     def get_action(self, action: str):
