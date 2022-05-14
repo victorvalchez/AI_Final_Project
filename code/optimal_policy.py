@@ -483,6 +483,9 @@ class GetOptimalPolicy:
         self.get_states_value()
         for i in range(8):
             self.optimal_policy(self.final_state_values, self.states[i])
-        for i in range(7):
-            print("The Optimal Policy for state", self.states[i], "is --> Action",
+        for i in range(8):
+            if i == 7:
+                print("There are no actions defineed for state", self.states[i])
+            else:
+                print("The Optimal Policy for state", self.states[i], "is --> Action",
                   self.optimal_policy_dict[self.states[i]])
