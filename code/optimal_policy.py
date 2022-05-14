@@ -445,7 +445,7 @@ class GetOptimalPolicy:
 
             iteration += 1
 
-        print("Number of iterations:", final_pos)
+        # print("Number of iterations:", final_pos)
         # For each state set its fixed value
         for i in range(8):
             self.final_state_values[self.states[i]] = round(self.previous_costs[self.states[i]][final_pos], 6)
@@ -457,7 +457,7 @@ class GetOptimalPolicy:
         costE = self.optimal_cost(final_state_vals, state, 'E')
         costW = self.optimal_cost(final_state_vals, state, 'W')
         min_cost = min(costN, costW, costE)
-        print("Minimum cost ", state, ":", min_cost)
+        # print("Minimum cost ", state, ":", min_cost)
         if min_cost == costN:
             optimal_action = 'N'
         elif min_cost == costE:
@@ -475,7 +475,7 @@ class GetOptimalPolicy:
         cost = self.cost_action[action]
         for i in range(8):
             cost += state_probs[i] * final_state_vals[self.states[i]]
-        return cost
+        return round(cost, 6)
 
     def get_optimal_policy(self):
         """This method gets the optimal policy for each state"""
@@ -483,4 +483,6 @@ class GetOptimalPolicy:
         self.get_states_value()
         for i in range(8):
             self.optimal_policy(self.final_state_values, self.states[i])
-        return self.optimal_policy_dict
+        for i in range(7):
+            print("The Optimal Policy for state", self.states[i], "is --> Action",
+                  self.optimal_policy_dict[self.states[i]])
