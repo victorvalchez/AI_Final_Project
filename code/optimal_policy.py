@@ -488,4 +488,4 @@ class GetOptimalPolicy:
                 print("There are no actions defined for state", self.states[i])
             else:
                 print("The Optimal Policy for state", self.states[i], "is --> Action",
-                  self.optimal_policy_dict[self.states[i]])
+                      self.optimal_policy_dict[self.states[i]])
